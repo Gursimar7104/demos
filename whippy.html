@@ -1,7 +1,85 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Review triage for Whippy | Gursimar Singh</title>
-<style>body{font-family:-apple-system,Segoe UI,Helvetica,Arial,sans-serif;max-width:760px;margin:40px auto;padding:0 20px;color:#1a1a1a;line-height:1.55}h1{font-size:24px;margin-bottom:4px}.sub{color:#666;margin-top:0}img{width:100%;border:1px solid #ddd;border-radius:8px;margin:20px 0}.next{background:#f5f5f5;padding:12px 16px;border-radius:6px}footer{margin-top:32px;color:#888;font-size:14px}</style></head>
-<body><h1>Review triage for Whippy</h1><p class="sub">Built by Gursimar Singh, Nov 2026, on real public data</p>
-<img src="whippy.gif" alt="Review triage for Whippy running">
-<p>I pulled 10 public reviews, 5 from G2 and 5 from Capterra. G2 lists 50 and Capterra lists 85, but the free scrape cap stopped at 5 each. Even in this 4.5 and 5 star set, 6 of the 10 still name a product issue, including a learning curve on automations, no bulk blocked-number upload, and a campaign that sent 10,000 plus messages when the contact list was smaller.</p>
-<p class="next"><b>What I'd improve next:</b> pull the full G2 and Capterra sets and group issues by onboarding versus missing features, so a post-sale engineer can turn them into playbooks.</p>
-<footer>Gursimar Singh · gursimarsb04@gmail.com · 848-218-9407</footer></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Claude filled 80 of 80 Bullhorn fields right on 10 test screening calls, and my rules still sent 7 to a recruiter | Gursimar Singh</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, Segoe UI, Helvetica, Arial, sans-serif;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 28px 20px 48px;
+      color: #1a1a1a;
+      line-height: 1.5;
+      background: #fff;
+    }
+    .kicker {
+      color: #555;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin: 0 0 8px;
+    }
+    h1 {
+      font-size: 1.65rem;
+      line-height: 1.25;
+      margin: 0 0 8px;
+      font-weight: 650;
+    }
+    .sub { color: #666; margin: 0 0 16px; font-size: 15px; }
+    .lede { margin: 0 0 18px; }
+    video {
+      width: 100%;
+      height: auto;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin: 0 0 20px;
+      background: #f5f5f5;
+      display: block;
+    }
+    h2 { font-size: 1rem; margin: 0 0 8px; }
+    ul { margin: 0 0 20px; padding-left: 1.2em; }
+    li { margin: 0 0 6px; }
+    .next {
+      background: #f5f5f5;
+      padding: 12px 16px;
+      border-radius: 6px;
+    }
+    footer { margin-top: 32px; color: #888; font-size: 14px; }
+    a { color: #1a1a1a; }
+    @media (max-width: 480px) {
+      body { padding-top: 20px; }
+      h1 { font-size: 1.35rem; }
+    }
+
+    .src { font-size: 14px; color: #555; }
+    .note { font-size: 14px; color: #555; background:#fff8e6; padding:8px 12px; border-radius:6px; }
+</style>
+</head>
+<body>
+  <p class="kicker">AI voice screening workflow for Whippy</p>
+  <h1>Claude filled 80 of 80 Bullhorn fields right on 10 test screening calls, and my rules still sent 7 to a recruiter</h1>
+  <p class="sub">Built by Gursimar Singh, Nov 2026</p>
+  <p class="lede">I mapped one AI voice screening flow for a staffing firm, the use case in your post: an 8-question call script, the Bullhorn Candidate fields each answer writes, and the routing rules. On 10 synthetic calls, Claude's field values matched my answer key on 80 of 80 fields, and plain code caught the 4 calls with a missing or vague answer before anything synced. Only 2 were ready to submit; 1 was stopped on work authorization.</p>
+  <video autoplay loop muted playsinline poster="whippy_poster.jpg" width="1120" height="664">
+    <source src="whippy.webm" type="video/webm">
+    <source src="whippy.mp4" type="video/mp4">
+    <img src="whippy_poster.jpg" alt="AI voice screening workflow for Whippy">
+  </video>
+  <p class="note"><b>Synthetic calls.</b> The 10 transcripts are written by me for the prototype. Field names and types are from Bullhorn's public REST entity reference.</p>
+<h2>Call script and the Bullhorn fields it writes back</h2>
+<table style="border-collapse:collapse;font-size:14px;margin:0 0 8px;width:100%"><tr style="text-align:left;background:#f0f0f0"><th style="padding:6px">Agent asks</th><th style="padding:6px">Candidate field</th><th style="padding:6px">Type</th><th style="padding:6px">Rule</th></tr><tr><td>Are you authorized to work in the US?</td><td><code>workAuthorized</code></td><td>Boolean</td><td>No = stop, mark not qualified</td></tr><tr><td>When can you start?</td><td><code>dateAvailable</code></td><td>Timestamp</td><td>Must be a real date on or after the call</td></tr><tr><td>Lowest hourly rate you would take?</td><td><code>hourlyRateLow</code></td><td>BigDecimal</td><td>Above the $20 max goes to a recruiter</td></tr><tr><td>How far can you travel to work?</td><td><code>travelLimit</code></td><td>Integer (miles)</td><td>Under the 12-mile site distance goes to a recruiter</td></tr><tr><td>Full time, part time, or temp?</td><td><code>employmentPreference</code></td><td>String (200)</td><td>Must match the picklist</td></tr><tr><td>Years working in a warehouse?</td><td><code>experience</code></td><td>Integer</td><td>Whole years only</td></tr><tr><td>Do you have a forklift certification?</td><td><code>certifications</code></td><td>String</td><td>Expired or none goes to a recruiter</td></tr><tr><td>OK to text you shift updates?</td><td><code>smsOptIn</code></td><td>Boolean</td><td>No = call only, never text</td></tr></table>
+<p style="font-size:14px;color:#555;margin:0 0 20px">After the call: one Note on the candidate (action "AI Screen", a short summary in comments, minutesSpent), then route to Ready to submit, Recruiter review, or Not qualified.</p>
+  <h2>How it works</h2>
+  <ul>
+    <li>Write the call script so every question maps to one Bullhorn Candidate field with a known type (Boolean, Timestamp, BigDecimal, Integer, String).</li><li>Claude reads each transcript and returns the field values as JSON, with null for vague answers like "January" or "whatever the job pays".</li><li>Plain code checks types, picklists and ranges, then routes: no work authorization stops the record, anything missing or outside the job's limits goes to a recruiter.</li>
+  </ul>
+  <p class="next"><b>What I'd improve next:</b> Pull the real field list and picklists from the customer's Bullhorn (or TempWorks, Avionte) instance, and add a callback branch so a vague answer gets re-asked by text before a recruiter has to step in.</p>
+  <p><a href="whippy.csv">Download the sheet (CSV)</a></p>
+  <h2>Sources</h2>
+  <ul class="src"><li><a href="https://jobs.ashbyhq.com/whippy/45a5f2e9-2b18-49e5-b3b0-9b32a5de8052">Whippy, Associate Solutions Engineer, Post-Sale (Ashby)</a></li><li><a href="https://bullhorn.github.io/rest-api-docs/entityref.html">Bullhorn REST API entity reference</a></li></ul>
+  <footer>Gursimar Singh · gursimarsb04@gmail.com · 848-218-9407</footer>
+</body>
+</html>

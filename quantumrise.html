@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Claude got 10 of 10 quarterly revenue figures right from Illinois 10-Qs. The free SEC API got the same 10 with no model. | Gursimar Singh</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, Segoe UI, Helvetica, Arial, sans-serif;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 28px 20px 48px;
+      color: #1a1a1a;
+      line-height: 1.5;
+      background: #fff;
+    }
+    .kicker {
+      color: #555;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin: 0 0 8px;
+    }
+    h1 {
+      font-size: 1.65rem;
+      line-height: 1.25;
+      margin: 0 0 8px;
+      font-weight: 650;
+    }
+    .sub { color: #666; margin: 0 0 16px; font-size: 15px; }
+    .lede { margin: 0 0 18px; }
+    video {
+      width: 100%;
+      height: auto;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin: 0 0 20px;
+      background: #f5f5f5;
+      display: block;
+    }
+    h2 { font-size: 1rem; margin: 0 0 8px; }
+    ul { margin: 0 0 20px; padding-left: 1.2em; }
+    li { margin: 0 0 6px; }
+    .next {
+      background: #f5f5f5;
+      padding: 12px 16px;
+      border-radius: 6px;
+    }
+    footer { margin-top: 32px; color: #888; font-size: 14px; }
+    a { color: #1a1a1a; }
+    @media (max-width: 480px) {
+      body { padding-top: 20px; }
+      h1 { font-size: 1.35rem; }
+    }
+
+    .src { font-size: 14px; color: #555; }
+    .note { font-size: 14px; color: #555; background:#fff8e6; padding:8px 12px; border-radius:6px; }
+</style>
+</head>
+<body>
+  <p class="kicker">Agent benchmark for Quantum Rise</p>
+  <h1>Claude got 10 of 10 quarterly revenue figures right from Illinois 10-Qs. The free SEC API got the same 10 with no model.</h1>
+  <p class="sub">Built by Gursimar Singh, Nov 2026</p>
+  <p class="lede">A small benchmark in the spirit of your post: before deploying an agent, test it, and check whether the job needs an LLM at all. I gave Claude raw income statement text from 10 Illinois public companies and asked for quarterly revenue in dollars. It handled the traps (Knowles Corporation reports in millions; Sprout Social, Inc., Tootsie Roll Industries Inc split revenue into lines before the total) and matched XBRL every time, but for tagged numbers like these the free XBRL API is the cheaper answer.</p>
+  <video autoplay loop muted playsinline poster="quantumrise_poster.jpg" width="1120" height="664">
+    <source src="quantumrise.webm" type="video/webm">
+    <source src="quantumrise.mp4" type="video/mp4">
+    <img src="quantumrise_poster.jpg" alt="Agent benchmark for Quantum Rise">
+  </video>
+  
+  <h2>How it works</h2>
+  <ul>
+    <li>Pick Illinois companies from the SEC XBRL frames API with $12.5M to $250M in Q3 2026 revenue, skipping funds and REITs, and pull each 10-Q.</li><li>Send Claude only the income statement text and ask for the three-month revenue in whole dollars, with null if it is not there.</li><li>Plain code compares every answer to the XBRL value the company tagged. Same pipeline can score any model or prompt before a client sees it.</li>
+  </ul>
+  <p class="next"><b>What I'd improve next:</b> Point the same harness at numbers that are not tagged, like backlog, customer counts or guidance in the MD&A, where an LLM is actually needed and where it is more likely to miss.</p>
+  <p><a href="quantumrise.csv">Download the sheet (CSV)</a></p>
+  <h2>Sources</h2>
+  <ul class="src"><li><a href="https://news.ycombinator.com/item?id=50344480">Quantum Rise on HN Who is hiring, Nov 2026</a></li><li><a href="https://data.sec.gov/api/xbrl/frames/us-gaap/Revenues/USD/CY2026Q3.json">SEC XBRL frames API (Q3 2026 revenue)</a></li><li><a href="https://www.sec.gov/edgar/search/">SEC EDGAR full-text filings (links per company in the CSV)</a></li></ul>
+  <footer>Gursimar Singh · gursimarsb04@gmail.com · 848-218-9407</footer>
+</body>
+</html>
