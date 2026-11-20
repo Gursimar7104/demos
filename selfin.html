@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JetBlue&#x27;s 10-Q lists dependence on the New York market and disruptions at focus cities | Gursimar Singh</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, Segoe UI, Helvetica, Arial, sans-serif;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 28px 20px 48px;
+      color: #1a1a1a;
+      line-height: 1.5;
+      background: #fff;
+    }
+    .kicker {
+      color: #555;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin: 0 0 8px;
+    }
+    h1 {
+      font-size: 1.65rem;
+      line-height: 1.25;
+      margin: 0 0 8px;
+      font-weight: 650;
+    }
+    .sub { color: #666; margin: 0 0 16px; font-size: 15px; }
+    .lede { margin: 0 0 18px; }
+    video {
+      width: 100%;
+      height: auto;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin: 0 0 20px;
+      background: #f5f5f5;
+      display: block;
+    }
+    h2 { font-size: 1rem; margin: 0 0 8px; }
+    ul { margin: 0 0 20px; padding-left: 1.2em; }
+    li { margin: 0 0 6px; }
+    .next {
+      background: #f5f5f5;
+      padding: 12px 16px;
+      border-radius: 6px;
+    }
+    footer { margin-top: 32px; color: #888; font-size: 14px; }
+    a { color: #1a1a1a; }
+    @media (max-width: 480px) {
+      body { padding-top: 20px; }
+      h1 { font-size: 1.35rem; }
+    }
+</style>
+</head>
+<body>
+  <p class="kicker">Target list for Selfin</p>
+  <h1>JetBlue&#x27;s 10-Q lists dependence on the New York market and disruptions at focus cities</h1>
+  <p class="sub">Built by Gursimar Singh, Nov 2026, on real public data</p>
+  <p class="lede">I built a New York target list in the verticals Selfin already names, sports and aviation, using official filings and IR pages. JetBlue's Form 10-Q, filed Oct 26, 2026, lists those New York and focus-city risks, and Selfin's own site uses a JFK closure as an airline hedge example. I left CoreWeave and DigitalOcean off, because their SEC principal offices are in Livingston, NJ and Broomfield, CO, not New York.</p>
+  <video autoplay loop muted playsinline poster="selfin_poster.jpg" width="1120" height="664">
+    <source src="selfin.webm" type="video/webm">
+    <source src="selfin.mp4" type="video/mp4">
+    <img src="selfin_poster.jpg" alt="New York hedging prospects for Selfin">
+  </video>
+  <h2>How it works</h2>
+  <ul>
+    <li>Use Selfin's own examples (a hub closure, sports outcomes, GPU rental prices) to decide which verticals to search.</li><li>Keep only companies whose New York presence is in an official filing, IR page or company press release, and write a one-line exposure note from that source.</li><li>Claude drafts the note from those facts only. A verifier flags any risk, such as player health or airport closures, that the source does not actually state.</li>
+  </ul>
+  <p class="next"><b>What I'd improve next:</b> Add named CFOs or treasurers, and keep looking for a New York-headquartered AI compute company whose official filings support a GPU-price exposure.</p>
+  <p><a href="selfin.csv">Download the sheet (CSV)</a></p>
+  <footer>Gursimar Singh · gursimarsb04@gmail.com · 848-218-9407</footer>
+</body>
+</html>
