@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>7 of 40 healthtech accounts score Tier 1 for Stedi, and only 3 of the 7 describe themselves as billing or RCM companies | Gursimar Singh</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, Segoe UI, Helvetica, Arial, sans-serif;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 28px 20px 48px;
+      color: #1a1a1a;
+      line-height: 1.5;
+      background: #fff;
+    }
+    .kicker {
+      color: #555;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin: 0 0 8px;
+    }
+    h1 {
+      font-size: 1.65rem;
+      line-height: 1.25;
+      margin: 0 0 8px;
+      font-weight: 650;
+    }
+    .sub { color: #666; margin: 0 0 16px; font-size: 15px; }
+    .lede { margin: 0 0 18px; }
+    video {
+      width: 100%;
+      height: auto;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin: 0 0 20px;
+      background: #f5f5f5;
+      display: block;
+    }
+    h2 { font-size: 1rem; margin: 0 0 8px; }
+    ul { margin: 0 0 20px; padding-left: 1.2em; }
+    li { margin: 0 0 6px; }
+    .next {
+      background: #f5f5f5;
+      padding: 12px 16px;
+      border-radius: 6px;
+    }
+    footer { margin-top: 32px; color: #888; font-size: 14px; }
+    a { color: #1a1a1a; }
+    @media (max-width: 480px) {
+      body { padding-top: 20px; }
+      h1 { font-size: 1.35rem; }
+    }
+
+    .src { font-size: 14px; color: #555; }
+    .note { font-size: 14px; color: #555; background:#fff8e6; padding:8px 12px; border-radius:6px; }
+</style>
+</head>
+<body>
+  <p class="kicker">ICP and account scoring sheet for Stedi</p>
+  <h1>7 of 40 healthtech accounts score Tier 1 for Stedi, and only 3 of the 7 describe themselves as billing or RCM companies</h1>
+  <p class="sub">Built by Gursimar Singh, Nov 2026</p>
+  <p class="lede">The post asks for models that decide which accounts Stedi sells to and who owns them. I pulled every active US YC company with a billing or insurance workflow (91), removed 17 already shown on Stedi's customer or partner pages, and scored the rest on API fit, EDI need and size. Below are the top 40, with tier, a proposed owner and the reason for each.</p>
+  <video autoplay loop muted playsinline poster="stedi_poster.jpg" width="1120" height="664">
+    <source src="stedi.webm" type="video/webm">
+    <source src="stedi.mp4" type="video/mp4">
+    <img src="stedi_poster.jpg" alt="ICP and account scoring sheet for Stedi">
+  </video>
+  <h2>Scoring and routing rules</h2>
+<table style="border-collapse:collapse;font-size:14px;width:100%;margin:0 0 20px">
+<tr><th style="text-align:left;border-bottom:1px solid #ccc">Score</th><th style="text-align:left;border-bottom:1px solid #ccc">+1 each when</th></tr>
+<tr><td>API fit (0-3)</td><td>builds software or AI; sits in the provider billing or intake flow; mentions API/integration or insurance-billed care</td></tr>
+<tr><td>EDI need (0-3)</td><td>one point per signal: eligibility, claims, payments/A/R, prior auth/denials; +1 if an open job post mentions billing, payers, denials or Medicaid (capped at 3)</td></tr>
+<tr><td>Size (0-3)</td><td>YC team size: 5 or fewer = 1, 6-30 = 2, 31+ = 3</td></tr>
+</table>
+<p class="note">Owner routing is my proposal (example), checked in order: payer-facing &rarr; Enterprise AE; Tier 3 &rarr; BDR nurture; EHR/PMS &rarr; Platform partnerships; 51+ people &rarr; Mid-market AE; else &rarr; Growth AE. Stedi's own careers page lists Growth AE, AE, BDR and Account Manager roles. Also in the files: a Google Sheets version with link formulas, and the list of 17 removed accounts.</p>
+  <h2>How it works</h2>
+  <ul>
+    <li>Pull the YC directory from the public yc-oss API, keep active US companies whose description mentions a billing, claims, eligibility, prior auth, EHR or insurance-billed care workflow, then drop any name that appears on stedi.com/customers or /platform-partners.</li><li>Score each account with plain rules: API fit (software product, sits in the billing or intake flow, API or insurance-billed care, 0-3), EDI need (eligibility, claims, payments, auth or denials signals plus open job posts that mention billing, payers or denials, 0-3), size (YC team size, 0-3). 7+ is Tier 1, 5-6 Tier 2.</li><li>Route owners with rules I'm proposing, not Stedi's: payer-facing to an enterprise AE, Tier 3 to a BDR nurture, EHR/PMS to platform partnerships, 51+ people to mid-market, the rest to a growth AE for new-logo startups. Every row carries its reason.</li>
+  </ul>
+  <p class="next"><b>What I'd improve next:</b> Swap YC team size for real headcount and funding from Clay, read each target's own docs for 270/271 or 837 mentions, add accounts that aren't from YC from Crunchbase and job boards, and push tiers and owners into HubSpot with a weekly re-score, measured against which accounts actually reach a demo.</p>
+  <p><a href="stedi.csv">Download the sheet (CSV)</a></p>
+  <h2>Sources</h2>
+  <ul class="src"><li><a href="https://jobs.ashbyhq.com/stedi/81eb8a79-7f49-4047-8c05-742ff62ac14a">Stedi, GTM Engineer (Ashby)</a></li><li><a href="https://yc-oss.github.io/api/companies/all.json">YC company directory (yc-oss API)</a></li><li><a href="https://www.stedi.com/customers">Stedi customers</a></li><li><a href="https://www.stedi.com/platform-partners">Stedi platform partners</a></li><li><a href="https://www.stedi.com/implementation-partners">Stedi implementation partners</a></li><li><a href="https://api.ashbyhq.com/posting-api/job-board/stedi">Stedi open roles (Ashby job board API)</a></li><li><a href="stedi_sheets.csv">Google Sheets version (CSV)</a></li><li><a href="stedi_excluded.csv">Removed: already on Stedi&#x27;s pages (CSV)</a></li></ul>
+  <footer>Gursimar Singh · gursimarsb04@gmail.com · 848-218-9407</footer>
+</body>
+</html>

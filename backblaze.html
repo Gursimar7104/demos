@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Backblaze lists CoreWeave as a free-egress partner, so training reads from B2 into CoreWeave GPUs skip the $0.01/GB overage | Gursimar Singh</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, Segoe UI, Helvetica, Arial, sans-serif;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 28px 20px 48px;
+      color: #1a1a1a;
+      line-height: 1.5;
+      background: #fff;
+    }
+    .kicker {
+      color: #555;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin: 0 0 8px;
+    }
+    h1 {
+      font-size: 1.65rem;
+      line-height: 1.25;
+      margin: 0 0 8px;
+      font-weight: 650;
+    }
+    .sub { color: #666; margin: 0 0 16px; font-size: 15px; }
+    .lede { margin: 0 0 18px; }
+    video {
+      width: 100%;
+      height: auto;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin: 0 0 20px;
+      background: #f5f5f5;
+      display: block;
+    }
+    h2 { font-size: 1rem; margin: 0 0 8px; }
+    ul { margin: 0 0 20px; padding-left: 1.2em; }
+    li { margin: 0 0 6px; }
+    .next {
+      background: #f5f5f5;
+      padding: 12px 16px;
+      border-radius: 6px;
+    }
+    footer { margin-top: 32px; color: #888; font-size: 14px; }
+    a { color: #1a1a1a; }
+    @media (max-width: 480px) {
+      body { padding-top: 20px; }
+      h1 { font-size: 1.35rem; }
+    }
+
+    .src { font-size: 14px; color: #555; }
+    .note { font-size: 14px; color: #555; background:#fff8e6; padding:8px 12px; border-radius:6px; }
+</style>
+</head>
+<body>
+  <p class="kicker">GPU training pipeline map for Backblaze</p>
+  <h1>Backblaze lists CoreWeave as a free-egress partner, so training reads from B2 into CoreWeave GPUs skip the $0.01/GB overage</h1>
+  <p class="sub">Built by Gursimar Singh, Nov 2026</p>
+  <p class="lede">The post says an SE shows where Backblaze slots into a customer's AI pipeline. I mapped a common setup, S3-based training on CoreWeave, from ingest to checkpoints and archive, using only Backblaze's own pages. One thing the math shows: on a cloud that isn't a partner, Overdrive's list price beats standard B2 plus overage once a dataset is read about 3.8 times a month.</p>
+  <video autoplay loop muted playsinline poster="backblaze_poster.jpg" width="1120" height="664">
+    <source src="backblaze.webm" type="video/webm">
+    <source src="backblaze.mp4" type="video/mp4">
+    <img src="backblaze_poster.jpg" alt="GPU training pipeline map for Backblaze">
+  </video>
+  <p><a href="backblaze_diagram.svg">Open the diagram (SVG)</a></p>
+<h2>Discovery questions</h2><ul><li><b>Workload:</b> What are you training (modality, model size) and how big is the dataset today and in 12 months?</li><li><b>Workload:</b> How many full passes over the data does a run make per month, and how many runs overlap?</li><li><b>Compute:</b> Which GPU clouds do you train on now, and which might you add? Is it all CoreWeave?</li><li><b>Data path:</b> How do data loaders read today: S3 API, POSIX mount, or a cache tier such as WEKA or local NVMe?</li><li><b>Throughput:</b> What aggregate read throughput keeps your GPUs busy, and where do they wait today?</li><li><b>Checkpoints:</b> How big is a checkpoint, how often do you write one, and how many do you keep?</li><li><b>Recovery:</b> When a run fails, how long does restoring the last checkpoint take, and what does an idle hour of the cluster cost you?</li><li><b>Governance:</b> Do weights or datasets need immutability, a second region, or a BAA?</li><li><b>Current stack:</b> What storage are you replacing, and what does egress cost you there each month?</li><li><b>Migration:</b> How much data has to move in, from where, and by when?</li><li><b>Decision:</b> Who signs off on a storage change, and what result in a POC would make it an easy yes?</li></ul>
+<h2>What a proof of concept would test</h2>
+<table style="border-collapse:collapse;font-size:14px;width:100%;margin:0 0 20px"><tr><th style="text-align:left">Test</th><th style="text-align:left">How</th><th style="text-align:left">Measure</th></tr><tr><td style="padding:6px;border-bottom:1px solid #eee"><b>Sustained read throughput</b></td><td style="padding:6px;border-bottom:1px solid #eee">Run the real data loader on a CoreWeave node pool against a B2 (or Overdrive) bucket for 1 hour (example duration).</td><td style="padding:6px;border-bottom:1px solid #eee">GPU utilization and samples/sec vs current storage; customer sets the pass bar.</td></tr><tr><td style="padding:6px;border-bottom:1px solid #eee"><b>Checkpoint write burst</b></td><td style="padding:6px;border-bottom:1px solid #eee">Write the real checkpoint size at the real interval with multipart upload.</td><td style="padding:6px;border-bottom:1px solid #eee">Time to durable write; training step stall time.</td></tr><tr><td style="padding:6px;border-bottom:1px solid #eee"><b>Restore from checkpoint</b></td><td style="padding:6px;border-bottom:1px solid #eee">Kill a run, restore the latest checkpoint from B2, resume.</td><td style="padding:6px;border-bottom:1px solid #eee">Minutes to resume vs today.</td></tr><tr><td style="padding:6px;border-bottom:1px solid #eee"><b>Egress bill check</b></td><td style="padding:6px;border-bottom:1px solid #eee">Read the full dataset N times (example N) to CoreWeave and to one non-partner cloud.</td><td style="padding:6px;border-bottom:1px solid #eee">Billed egress matches the published terms: $0 to partners, 3x free then $0.01/GB elsewhere.</td></tr><tr><td style="padding:6px;border-bottom:1px solid #eee"><b>S3 compatibility</b></td><td style="padding:6px;border-bottom:1px solid #eee">Point existing S3 tooling (SDK, loaders, checkpoint libraries) at the B2 endpoint with no code changes beyond endpoint and keys.</td><td style="padding:6px;border-bottom:1px solid #eee">Count of code changes needed; any failing API calls.</td></tr><tr><td style="padding:6px;border-bottom:1px solid #eee"><b>Immutability and replica</b></td><td style="padding:6px;border-bottom:1px solid #eee">Turn on Object Lock for final weights and replicate one bucket to a second region.</td><td style="padding:6px;border-bottom:1px solid #eee">Locked objects cannot be deleted; replica is complete; no replication fee on the invoice.</td></tr></table>
+<p class="note">Example workload (not a customer): 2,000 TB read 4 times a month. To a non-partner cloud: B2 $13,900 storage + $20,000 overage = $33,900, vs Overdrive $30,000. On CoreWeave, B2 egress is $0, so B2 = $13,900. List prices, decimal TB, no commit discounts.</p>
+  <h2>How it works</h2>
+  <ul>
+    <li>Pull every pricing, egress, throughput and feature claim from backblaze.com (pricing, B2 Overdrive, AI/ML, AI integrations, S3 API docs, the CoreWeave announcement) and keep the exact quote for each, so a script can check it.</li><li>Draw the data flow: raw data lands in B2, CoreWeave GPUs stream training shards over the S3 API, checkpoints go back to B2, and old checkpoints and final weights are locked and replicated for recovery or a move to another cloud.</li><li>Turn the open points into discovery questions and POC tests, and compute where egress costs flip from published list prices: 3 + (15 - 6.95) / 10 = 3.81 reads per month.</li>
+  </ul>
+  <p class="next"><b>What I'd improve next:</b> Run the throughput and checkpoint tests on a real CoreWeave node pool with an open dataset, publish the numbers next to these list-price facts, and add a second map for the new path where Backblaze runs HDD tiers inside CoreWeave AI Object Storage, so an SE can tell a customer which one fits their workload.</p>
+  <p><a href="backblaze.csv">Download the sheet (CSV)</a></p>
+  <h2>Sources</h2>
+  <ul class="src"><li><a href="https://job-boards.greenhouse.io/backblaze/jobs/5456407008">Backblaze, Solutions Engineer (Greenhouse)</a></li><li><a href="https://www.backblaze.com/cloud-storage/pricing">[1] B2 Cloud Storage starts at $6.95/TB/month</a></li><li><a href="https://www.backblaze.com/cloud-storage/pricing">[2] B2 Overdrive starts at $15/TB/month</a></li><li><a href="https://www.backblaze.com/cloud-storage/pricing">[3] Free egress up to 3x average monthly storage</a></li><li><a href="https://www.backblaze.com/cloud-storage/pricing">[4] Egress beyond 3x is $0.01/GB</a></li><li><a href="https://www.backblaze.com/cloud-storage/pricing">[5] Unlimited free egress to partner compute services, including CoreWeave</a></li><li><a href="https://www.backblaze.com/cloud-storage/b2-overdrive">[6] Overdrive throughput options from 100Gbps up to 1Tbps</a></li><li><a href="https://www.backblaze.com/cloud-storage/pricing">[7] Overdrive: unlimited free egress to any destination</a></li><li><a href="https://www.backblaze.com/cloud-storage/b2-overdrive">[8] Overdrive: dedicated hardware and networking</a></li><li><a href="https://www.backblaze.com/cloud-storage/b2-overdrive">[9] Overdrive: private networking</a></li><li><a href="https://www.backblaze.com/cloud-storage/b2-overdrive">[10] Overdrive FAQ: at least 1PB stored</a></li><li><a href="https://www.backblaze.com/cloud-storage/pricing">[11] Pricing page: multi-petabyte commitment required</a></li><li><a href="https://www.backblaze.com/cloud-storage/pricing">[12] Free transactions</a></li><li><a href="https://www.backblaze.com/cloud-storage/pricing">[13] No minimum file size or storage duration fees</a></li><li><a href="https://www.backblaze.com/docs/cloud-storage-s3-compatible-api">[14] S3-compatible API: S3 apps work with minimal code changes</a></li><li><a href="https://www.backblaze.com/cloud-storage/industries/ai-ml">[15] B2 positioned for training sets, checkpoints and inference data</a></li><li><a href="https://www.backblaze.com/cloud-storage/b2-ai-integrations">[16] WEKA NeuralMesh for hot data, B2 for datasets, checkpoints, outputs</a></li><li><a href="https://www.backblaze.com/cloud-storage/b2-overdrive">[17] Object Lock (WORM)</a></li><li><a href="https://www.backblaze.com/cloud-storage/b2-overdrive">[18] Cloud Replication: no service or egress fees</a></li><li><a href="https://www.backblaze.com/cloud-storage/industries/ai-ml">[19] Universal Data Migration into B2</a></li><li><a href="https://www.backblaze.com/blog/coreweave-announcement-2026/">[20] June 23, 2026: multi-exabyte, $335M agreement with CoreWeave</a></li><li><a href="https://www.backblaze.com/blog/coreweave-announcement-2026/">[21] Backblaze supports HDD-based tiers in CoreWeave AI Object Storage</a></li><li><a href="https://www.backblaze.com/cloud-storage/b2-overdrive">[22] Overdrive access, including testing, enabled via Sales</a></li><li><a href="https://www.backblaze.com/cloud-storage/industries/ai-ml">[23] Zero upload and delete fees</a></li></ul>
+  <footer>Gursimar Singh · gursimarsb04@gmail.com · 848-218-9407</footer>
+</body>
+</html>

@@ -1,0 +1,4 @@
+fault,mcp_tool,before_heal,before_detail,after_heal,after_detail
+Service won't stay up,service_status,FAULT,crash-looping; uptime 0s; 18 restarts in 10 min,ok,running and stable; uptime 35s; 18 restarts in 10 min
+Disk keeps filling,disk_usage,FAULT,100% used of 64 MB; biggest: data/logs/debug.log (64 MB),ok,5% used of 64 MB; biggest: data/reports/report-2026-11-21.txt (2 MB)
+Nightly report not sent,last_report_age,FAULT,"newest report report-2026-11-17.txt, 103.7 h old",ok,"newest report report-2026-11-21.txt, 0 h old"

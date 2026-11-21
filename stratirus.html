@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>3 of 3 server faults caught by a read-only MCP check, and 3 of 3 cleared by heal.sh | Gursimar Singh</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, Segoe UI, Helvetica, Arial, sans-serif;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 28px 20px 48px;
+      color: #1a1a1a;
+      line-height: 1.5;
+      background: #fff;
+    }
+    .kicker {
+      color: #555;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin: 0 0 8px;
+    }
+    h1 {
+      font-size: 1.65rem;
+      line-height: 1.25;
+      margin: 0 0 8px;
+      font-weight: 650;
+    }
+    .sub { color: #666; margin: 0 0 16px; font-size: 15px; }
+    .lede { margin: 0 0 18px; }
+    video {
+      width: 100%;
+      height: auto;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin: 0 0 20px;
+      background: #f5f5f5;
+      display: block;
+    }
+    h2 { font-size: 1rem; margin: 0 0 8px; }
+    ul { margin: 0 0 20px; padding-left: 1.2em; }
+    li { margin: 0 0 6px; }
+    .next {
+      background: #f5f5f5;
+      padding: 12px 16px;
+      border-radius: 6px;
+    }
+    footer { margin-top: 32px; color: #888; font-size: 14px; }
+    a { color: #1a1a1a; }
+    @media (max-width: 480px) {
+      body { padding-top: 20px; }
+      h1 { font-size: 1.35rem; }
+    }
+
+    .src { font-size: 14px; color: #555; }
+    .note { font-size: 14px; color: #555; background:#fff8e6; padding:8px 12px; border-radius:6px; }
+</style>
+</head>
+<body>
+  <p class="kicker">Read-only MCP health check for a broken Ubuntu-style box</p>
+  <h1>3 of 3 server faults caught by a read-only MCP check, and 3 of 3 cleared by heal.sh</h1>
+  <p class="sub">Built by Gursimar Singh, Nov 2026</p>
+  <p class="lede">Your post describes a box with a service that won&#x27;t stay up, a nightly report that stopped, and a disk that keeps filling. I built my own small lab with those three fault types (not your opsbox challenge, since you asked that solutions stay private), a TypeScript MCP server an agent can call to check on it without being able to change anything, and a heal script. The check flagged all 3 faults, and it also caught my first heal.sh: it reported success while the disk was still 100% full, so 2 of 3 checks still failed until I fixed it.</p>
+  <video autoplay loop muted playsinline poster="stratirus_poster.jpg" width="1120" height="664">
+    <source src="stratirus.webm" type="video/webm">
+    <source src="stratirus.mp4" type="video/mp4">
+    <img src="stratirus_poster.jpg" alt="Read-only MCP health check for a broken Ubuntu-style box">
+  </video>
+  <h2>The MCP server (src/server.ts)</h2><pre style="background:#f6f8fa;padding:12px;border-radius:6px;overflow:auto;font-size:12.5px;line-height:1.45"><code>// Read-only MCP server: lets an AI agent check a box&#x27;s health without being able to change it.
+// No tool writes files, kills processes or runs shell commands; every path is fixed under LAB_ROOT.
+import { McpServer } from &quot;@modelcontextprotocol/sdk/server/mcp.js&quot;;
+import { StdioServerTransport } from &quot;@modelcontextprotocol/sdk/server/stdio.js&quot;;
+import { z } from &quot;zod&quot;;
+import { promises as fs } from &quot;node:fs&quot;;
+import path from &quot;node:path&quot;;
+
+const ROOT = process.env.LAB_ROOT ?? &quot;/&quot;;
+const p = (...s: string[]) =&gt; path.join(ROOT, ...s);
+const SERVICES: Record&lt;string, { pidfile: string; log: string }&gt; = {
+  &quot;app-sync&quot;: { pidfile: p(&quot;run/app-sync.pid&quot;), log: p(&quot;var/log/app-sync.log&quot;) },
+};
+const DISK_LIMIT_PCT = 90, REPORT_MAX_AGE_H = 26, MIN_UPTIME_S = 30;
+const ok = (o: unknown) =&gt; ({ content: [{ type: &quot;text&quot; as const, text: JSON.stringify(o, null, 2) }] });
+
+async function tail(file: string, n: number) {
+  try { return (await fs.readFile(file, &quot;utf8&quot;)).trimEnd().split(&quot;\n&quot;).slice(-n); } catch { return []; }
+}
+async function uptimeSeconds(pid: number) {
+  // field 22 of /proc/&lt;pid&gt;/stat is start time in clock ticks since boot
+  const stat = await fs.readFile(`/proc/${pid}/stat`, &quot;utf8&quot;);
+  const start = Number(stat.slice(stat.lastIndexOf(&quot;)&quot;) + 2).split(&quot; &quot;)[19]) / 100;
+  const up = Number((await fs.readFile(&quot;/proc/uptime&quot;, &quot;utf8&quot;)).split(&quot; &quot;)[0]);
+  return Math.round(up - start);
+}
+
+export async function serviceStatus(name: string) {
+  const s = SERVICES[name];
+  let pid: number | null = null, alive = false, uptime = 0;
+  try { pid = Number((await fs.readFile(s.pidfile, &quot;utf8&quot;)).trim()); uptime = await uptimeSeconds(pid); alive = true; } catch {}
+  const since = Date.now() - 10 * 60_000;
+  const exits = (await tail(s.log, 2000)).filter(l =&gt; l.includes(&quot;exited code=&quot;) &amp;&amp; Date.parse(l.split(&quot; &quot;)[0]) &gt;= since);
+  const healthy = alive &amp;&amp; uptime &gt;= MIN_UPTIME_S;
+  return { check: &quot;service_status&quot;, service: name, healthy, pid, alive, uptime_s: uptime,
+    restarts_last_10m: exits.length, last_exit: exits.at(-1) ?? null,
+    verdict: healthy ? &quot;running and stable&quot; : exits.length &gt;= 3 ? &quot;crash-looping&quot; : &quot;not running&quot; };
+}
+export async function diskUsage() {
+  const mount = p(&quot;data&quot;); const st = await fs.statfs(mount);
+  const pct = Math.round(100 * (1 - st.bavail / st.blocks));
+  const files: { file: string; mb: number }[] = [];
+  async function walk(d: string) {
+    for (const e of await fs.readdir(d, { withFileTypes: true })) {
+      const f = path.join(d, e.name);
+      if (e.isDirectory()) await walk(f); else files.push({ file: path.relative(ROOT, f), mb: +((await fs.stat(f)).size / 1048576).toFixed(1) });
+    }
+  }
+  await walk(mount); files.sort((a, b) =&gt; b.mb - a.mb);
+  return { check: &quot;disk_usage&quot;, mount: path.relative(ROOT, mount), healthy: pct &lt; DISK_LIMIT_PCT, used_pct: pct,
+    size_mb: Math.round(st.blocks * st.bsize / 1048576), limit_pct: DISK_LIMIT_PCT, largest_files: files.slice(0, 3) };
+}
+export async function lastReportAge() {
+  const dir = p(&quot;data/reports&quot;); let newest: { file: string; mtime: number } | null = null;
+  for (const f of await fs.readdir(dir)) {
+    if (!/^report-.*\.txt$/.test(f)) continue;
+    const m = (await fs.stat(path.join(dir, f))).mtimeMs; if (!newest || m &gt; newest.mtime) newest = { file: f, mtime: m };
+  }
+  const age = newest ? +((Date.now() - newest.mtime) / 3.6e6).toFixed(1) : null;
+  return { check: &quot;last_report_age&quot;, healthy: age !== null &amp;&amp; age &lt;= REPORT_MAX_AGE_H, newest_report: newest?.file ?? null,
+    age_hours: age, max_age_hours: REPORT_MAX_AGE_H, last_job_log: (await tail(p(&quot;var/log/report.log&quot;), 1))[0] ?? null };
+}
+export async function recentErrors(lines: number) {
+  const out: string[] = [];
+  for (const f of await fs.readdir(p(&quot;var/log&quot;))) for (const l of await tail(p(&quot;var/log&quot;, f), 500)) if (/ERROR/.test(l)) out.push(`${f}: ${l}`);
+  return { check: &quot;recent_errors&quot;, count: out.length, errors: out.slice(-lines) };
+}
+
+const server = new McpServer({ name: &quot;box-health&quot;, version: &quot;0.1.0&quot; });
+server.registerTool(&quot;service_status&quot;, { description: &quot;Is a service up and stable? Reports pid, uptime and restarts in the last 10 minutes.&quot;, inputSchema: { name: z.enum([&quot;app-sync&quot;]) } }, async ({ name }) =&gt; ok(await serviceStatus(name)));
+server.registerTool(&quot;disk_usage&quot;, { description: &quot;Used % of the data disk and its 3 largest files.&quot;, inputSchema: {} }, async () =&gt; ok(await diskUsage()));
+server.registerTool(&quot;last_report_age&quot;, { description: &quot;Age in hours of the newest nightly report, plus the job&#x27;s last log line.&quot;, inputSchema: {} }, async () =&gt; ok(await lastReportAge()));
+server.registerTool(&quot;recent_errors&quot;, { description: &quot;Last ERROR lines across the service and job logs.&quot;, inputSchema: { lines: z.number().int().min(1).max(50).default(10) } }, async ({ lines }) =&gt; ok(await recentErrors(lines)));
+server.registerTool(&quot;health_summary&quot;, { description: &quot;Runs service, disk and report checks and counts faults.&quot;, inputSchema: {} }, async () =&gt; {
+  const checks = [await serviceStatus(&quot;app-sync&quot;), await diskUsage(), await lastReportAge()];
+  return ok({ faults: checks.filter(c =&gt; !c.healthy).length, of: checks.length, checks });
+});
+await server.connect(new StdioServerTransport());
+</code></pre><h2>heal.sh</h2><pre style="background:#f6f8fa;padding:12px;border-radius:6px;overflow:auto;font-size:12.5px;line-height:1.45"><code>#!/usr/bin/env bash
+# self-heal: safe to run repeatedly; each step checks before it acts and verifies after
+set -u; export LAB_ROOT=&quot;${LAB_ROOT:-$(cd &quot;$(dirname &quot;$0&quot;)&quot; &amp;&amp; pwd)/box}&quot;; H=&quot;$(cd &quot;$(dirname &quot;$0&quot;)&quot; &amp;&amp; pwd)&quot;
+D=&quot;$LAB_ROOT/data&quot;; say(){ echo &quot;$(date -u +%T) $*&quot;; }
+# 1. disk: stop the runaway writer, keep the last 1 MB of its log for debugging
+if [ -f &quot;$LAB_ROOT/run/debug-writer.pid&quot; ] &amp;&amp; kill -0 &quot;$(cat &quot;$LAB_ROOT/run/debug-writer.pid&quot;)&quot; 2&gt;/dev/null; then
+  kill &quot;$(cat &quot;$LAB_ROOT/run/debug-writer.pid&quot;)&quot;; say &quot;stopped runaway debug writer&quot;; fi
+pkill -f &quot;$H/debug-writer.sh&quot; 2&gt;/dev/null
+# v2: a temp file on the full disk can&#x27;t be written (v1 bug), so stage the tail off-disk and truncate in place
+rm -f &quot;$D/logs/debug.log.tail&quot;
+if [ -f &quot;$D/logs/debug.log&quot; ]; then T=$(mktemp); tail -c 1048576 &quot;$D/logs/debug.log&quot; &gt; &quot;$T&quot; &amp;&amp; truncate -s 0 &quot;$D/logs/debug.log&quot; &amp;&amp; cat &quot;$T&quot; &gt;&gt; &quot;$D/logs/debug.log&quot; &amp;&amp; say &quot;trimmed debug.log to 1 MB&quot; || say &quot;FAILED to trim debug.log&quot;; rm -f &quot;$T&quot;; fi
+say &quot;data disk now $(df --output=pcent &quot;$D&quot; | tail -1 | tr -d &#x27; &#x27;)&quot;
+# 2. service: restore missing config from the shipped example; supervisor restarts it
+CFG=&quot;$LAB_ROOT/etc/app-sync/config.json&quot;
+if [ ! -s &quot;$CFG&quot; ]; then cp &quot;$LAB_ROOT/etc/app-sync/config.example.json&quot; &quot;$CFG&quot;; say &quot;restored $CFG from example&quot;; fi
+pgrep -f &quot;$H/supervisor.sh&quot; &gt;/dev/null || { nohup &quot;$H/supervisor.sh&quot; &gt;/dev/null 2&gt;&amp;1 &amp; say &quot;started supervisor&quot;; }
+# 3. report: rerun tonight&#x27;s job now that there is space
+&quot;$H/report.sh&quot; &amp;&amp; say &quot;report re-run OK&quot; || say &quot;report re-run FAILED&quot;
+sleep 35; P=$(cat &quot;$LAB_ROOT/run/app-sync.pid&quot;); kill -0 &quot;$P&quot; 2&gt;/dev/null &amp;&amp; say &quot;app-sync pid $P still up after 35s&quot; || say &quot;app-sync NOT stable&quot;
+</code></pre><h2>Real tool output</h2><p class="src">service_status before heal:</p><pre style="background:#f6f8fa;padding:12px;border-radius:6px;overflow:auto;font-size:12.5px;line-height:1.45"><code>{
+  &quot;check&quot;: &quot;service_status&quot;,
+  &quot;service&quot;: &quot;app-sync&quot;,
+  &quot;healthy&quot;: false,
+  &quot;pid&quot;: 958673,
+  &quot;alive&quot;: false,
+  &quot;uptime_s&quot;: 0,
+  &quot;restarts_last_10m&quot;: 18,
+  &quot;last_exit&quot;: &quot;2026-11-21T14:44:08.000Z ERROR app-sync exited code=1, restarting in 2s&quot;,
+  &quot;verdict&quot;: &quot;crash-looping&quot;
+}</code></pre><p class="src">last_report_age before heal:</p><pre style="background:#f6f8fa;padding:12px;border-radius:6px;overflow:auto;font-size:12.5px;line-height:1.45"><code>{
+  &quot;check&quot;: &quot;last_report_age&quot;,
+  &quot;healthy&quot;: false,
+  &quot;newest_report&quot;: &quot;report-2026-11-17.txt&quot;,
+  &quot;age_hours&quot;: 103.7,
+  &quot;max_age_hours&quot;: 26,
+  &quot;last_job_log&quot;: &quot;2026-11-21T14:43:43.000Z ERROR report failed: could not write data/reports/report-2026-11-21.txt (No space left on device?)&quot;
+}</code></pre>
+  <h2>How it works</h2>
+  <ul>
+    <li>Lab on a Linux box: a 64 MB tmpfs as the data disk, a Node service under a restart-always supervisor with its config missing, a runaway debug log, and a report job whose last good run was 4 days ago. Tonight&#x27;s run fails because the disk is full.</li><li>The MCP server (TypeScript, official SDK, stdio) exposes service_status, disk_usage, last_report_age, recent_errors and health_summary. No tool writes, kills or runs a shell, and paths are fixed, so an agent can look but never make it worse.</li><li>heal.sh stops the writer, trims the log in place, restores the config and reruns the report, checking each step. An MCP client then reruns every check, which is how the v1 full-disk bug got caught.</li>
+  </ul>
+  <p class="next"><b>What I'd improve next:</b> Point the same tools at systemd and journald on a real Ubuntu 24.04 box (systemctl show NRestarts, journalctl -p err), add logrotate and a disk alert before 90%, and register the server in Claude Code and Copilot Studio so a client&#x27;s IT person can just ask whether the box is healthy.</p>
+  <p><a href="stratirus.csv">Download the sheet (CSV)</a></p>
+  <h2>Sources</h2>
+  <ul class="src"><li><a href="https://news.ycombinator.com/item?id=50340134">Stratirus on HN Who is hiring (Nov 2026)</a></li><li><a href="https://github.com/Stratirus/ops-agent-challenge">Stratirus ops-agent-challenge README</a></li><li><a href="https://github.com/modelcontextprotocol/typescript-sdk">Model Context Protocol TypeScript SDK</a></li><li><a href="stratirus.csv">Check results (CSV)</a></li></ul>
+  <footer>Gursimar Singh · gursimarsb04@gmail.com · 848-218-9407</footer>
+</body>
+</html>
