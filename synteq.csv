@@ -1,0 +1,10 @@
+company,synteq_compare,page,llms_txt
+DigitalOcean,yes,https://synteq.com/compare/companies/digitalocean,not checked for this row
+Hetzner,yes,https://synteq.com/compare/companies/hetzner,https://www.hetzner.com/llms.txt returned HTML 404
+OVH,yes,https://synteq.com/compare/companies/ovh,not checked for this row
+Vultr,yes,https://synteq.com/compare/companies/vultr,https://www.vultr.com/llms.txt returned HTML 404
+Render,yes,https://synteq.com/compare/companies/render,not checked for this row
+Railway,yes,https://synteq.com/compare/companies/railway,not checked for this row
+Heroku,yes,https://synteq.com/compare/companies/heroku,not checked for this row
+Fly.io,no,,"https://fly.io/llms.txt (200, 6240 bytes)"
+Lambda,no,,"https://lambda.com/llms.txt (200, 4747 bytes)"

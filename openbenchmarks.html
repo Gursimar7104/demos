@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Openbenchmarks covers 13 tool-choice hubs; 6 public agent benches still sit outside them | Gursimar Singh</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, Segoe UI, Helvetica, Arial, sans-serif;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 28px 20px 48px;
+      color: #1a1a1a;
+      line-height: 1.5;
+      background: #fff;
+    }
+    .kicker {
+      color: #555;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin: 0 0 8px;
+    }
+    h1 {
+      font-size: 1.65rem;
+      line-height: 1.25;
+      margin: 0 0 8px;
+      font-weight: 650;
+    }
+    .sub { color: #666; margin: 0 0 16px; font-size: 15px; }
+    .lede { margin: 0 0 18px; }
+    video {
+      width: 100%;
+      height: auto;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin: 0 0 20px;
+      background: #f5f5f5;
+      display: block;
+    }
+    h2 { font-size: 1rem; margin: 0 0 8px; }
+    ul { margin: 0 0 20px; padding-left: 1.2em; }
+    li { margin: 0 0 6px; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0 0 20px;
+      font-size: 14px;
+    }
+    th, td {
+      text-align: left;
+      padding: 8px 10px;
+      border-bottom: 1px solid #eee;
+      vertical-align: top;
+    }
+    th { color: #555; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.03em; }
+    .next {
+      background: #f5f5f5;
+      padding: 12px 16px;
+      border-radius: 6px;
+    }
+    footer { margin-top: 32px; color: #888; font-size: 14px; }
+    a { color: #1a1a1a; }
+    @media (max-width: 480px) {
+      body { padding-top: 20px; }
+      h1 { font-size: 1.35rem; }
+    }
+    .src { font-size: 14px; color: #555; }
+    .note { font-size: 14px; color: #555; background:#fff8e6; padding:8px 12px; border-radius:6px; }
+</style>
+</head>
+<body>
+  <p class="kicker">Benchmark coverage map for Openbenchmarks</p>
+  <h1>Openbenchmarks already covers 13 tool-choice hubs. I mapped 6 widely cited public agent benches that still sit outside those hubs, including SWE-bench, Terminal-bench, and BrowseComp.</h1>
+  <p class="sub">Built by Gursimar Singh, Nov 2026</p>
+  <p class="lede">Your Founding GTM role is to turn benchmark nuance into content people and agents can cite, and to know where existing benches are saturated so you can propose what to run next. I used your own llms.txt (updated Nov 21, 2026) as the coverage source, then checked the canonical pages for six public benches the job description itself names or that agents already use to pick tools.</p>
+  <video controls playsinline preload="metadata" poster="openbenchmarks_poster.jpg">
+    <source src="openbenchmarks.webm" type="video/webm">
+    <source src="openbenchmarks.mp4" type="video/mp4">
+  </video>
+
+  <h2>What Openbenchmarks already runs</h2>
+  <p>From <code>openbenchmarks.com/llms.txt</code>: Web Search, Multi-Turn Company Search, Company News, Web Search for Coding Agents, Document Processing, Company Lookalikes, Company Enrichment, Company Funding, LLM Inference, Voice Agent Latency, Text-to-Speech (Coval), Speech-to-Text (Coval), and Structured Speech-to-Text. The sitemap has 484 URLs, including 109 comparison or alternatives pages. That is a real content engine.</p>
+  <h2>Public benches not in those hubs</h2>
+  <table>
+    <thead><tr><th>Benchmark</th><th>What agents use it to pick</th><th>Canonical page</th></tr></thead>
+    <tbody>
+      <tr><td>SWE-bench</td><td>Coding agents / issue repair</td><td>swebench.com</td></tr>
+      <tr><td>Terminal-bench</td><td>Terminal / computer-use agents</td><td>www.tbench.ai</td></tr>
+      <tr><td>BrowseComp</td><td>Browsing / web-research agents</td><td>OpenAI BrowseComp (2025)</td></tr>
+      <tr><td>WebArena</td><td>End-to-end web agents</td><td>webarena.dev</td></tr>
+      <tr><td>GAIA</td><td>General assistant tool use</td><td>huggingface.co/gaia-benchmark</td></tr>
+      <tr><td>OSWorld</td><td>Desktop / OS computer-use agents</td><td>os-world.github.io</td></tr>
+    </tbody>
+  </table>
+  <p>Your web-search-for-coding-agents hub ranks search APIs that coding agents call. It does not score the coding agents or apply/merge models themselves. That is the gap I would write about first: a clearly labeled "not a search-API bench" page, so agents do not confuse the two jobs.</p>
+
+  <p class="next"><b>What I'd improve next:</b> Draft the first public explainer that separates your coding-agent search-API board from SWE-bench and Terminal-bench, then propose a scoped v1 for apply/merge or computer-use tool choice with a public methodology.</p>
+  <footer>
+  <p>Sources</p>
+  <ul class="src"><li><a href="https://www.ycombinator.com/companies/openbenchmarks/jobs/gqlxWMe-founding-gtm">Openbenchmarks, Founding GTM (YC)</a></li><li><a href="https://openbenchmarks.com/llms.txt">openbenchmarks.com/llms.txt (updated 2026-11-21)</a></li><li><a href="https://openbenchmarks.com/sitemap.xml">openbenchmarks.com sitemap (484 URLs)</a></li><li><a href="https://www.swebench.com/">SWE-bench</a></li><li><a href="https://www.tbench.ai/">Terminal-bench</a></li><li><a href="https://openai.com/index/browsecomp/">OpenAI, BrowseComp</a></li><li><a href="https://webarena.dev/">WebArena</a></li><li><a href="https://huggingface.co/spaces/gaia-benchmark/leaderboard">GAIA leaderboard</a></li><li><a href="https://os-world.github.io/">OSWorld</a></li><li><a href="openbenchmarks.csv">Coverage map in the CSV</a></li></ul>
+  <p>Gursimar Singh · gursimarsb04@gmail.com · 848-218-9407</p>
+  </footer>
+</body>
+</html>

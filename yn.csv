@@ -1,0 +1,5 @@
+url,status,note
+https://yn.app/,200,homepage fetched
+https://yn.app/sitemap.xml,404,no sitemap
+https://yn.app/llms.txt,404,no llms.txt
+https://yn.app/robots.txt,200,User-agent: * / Allow: / / Disallow: /invite

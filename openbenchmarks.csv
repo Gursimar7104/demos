@@ -1,0 +1,20 @@
+hub_or_gap,name,source
+covered,Web Search,https://openbenchmarks.com/llms.txt
+covered,Multi-Turn Company Search,https://openbenchmarks.com/llms.txt
+covered,Company News,https://openbenchmarks.com/llms.txt
+covered,Web Search for Coding Agents,https://openbenchmarks.com/llms.txt
+covered,Document Processing,https://openbenchmarks.com/llms.txt
+covered,Company Lookalikes,https://openbenchmarks.com/llms.txt
+covered,Company Enrichment,https://openbenchmarks.com/llms.txt
+covered,Company Funding,https://openbenchmarks.com/llms.txt
+covered,LLM Inference,https://openbenchmarks.com/llms.txt
+covered,Voice Agent Latency,https://openbenchmarks.com/llms.txt
+covered,Text-to-Speech (Coval),https://openbenchmarks.com/llms.txt
+covered,Speech-to-Text (Coval),https://openbenchmarks.com/llms.txt
+covered,Structured Speech-to-Text,https://openbenchmarks.com/llms.txt
+"gap (public bench, not in llms.txt hubs)",SWE-bench,https://www.swebench.com/
+"gap (public bench, not in llms.txt hubs)",Terminal-bench,https://www.tbench.ai/
+"gap (public bench, not in llms.txt hubs)",BrowseComp,https://openai.com/index/browsecomp/
+"gap (public bench, not in llms.txt hubs)",WebArena,https://webarena.dev/
+"gap (public bench, not in llms.txt hubs)",GAIA,https://huggingface.co/spaces/gaia-benchmark/leaderboard
+"gap (public bench, not in llms.txt hubs)",OSWorld,https://os-world.github.io/
