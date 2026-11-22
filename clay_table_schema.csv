@@ -1,0 +1,14 @@
+column,column_type,depends_on,logic,example_value
+email,Input,Demo form,Business email from the form,jane@acme.com
+domain,Formula,email,"Text after @; flag free-mail domains (gmail, yahoo, outlook)",acme.com
+role_bucket,Input,Demo form step 2,"""Which best describes you?"" answer",Rev Ops / Sales Ops
+use_cases,Input,Demo form step 2,"Checked use cases, comma separated","CRM enrichment, Inbound lead orchestration"
+employee_count,Enrichment,domain,Company headcount from a Clay company enrichment,420
+industry,Enrichment,domain,Company industry,Software
+sales_team_size,Enrichment,domain,Count of people with AE/SDR/BDR titles (Clay people search),18
+crm,Enrichment,domain,Tech stack lookup for Salesforce or HubSpot,Salesforce
+open_gtm_roles,Enrichment,domain,"Open job posts mentioning RevOps, SDR or GTM engineer",3
+fit_score,Formula,above,"My heuristic: employee_count 50-5000 (+2), sales_team_size >= 5 (+2), crm known (+1), open_gtm_roles > 0 (+1), role_bucket RevOps or Sales (+1), free-mail domain (-3)",7
+route,Formula,fit_score,>= 5 AE meeting link; 3-4 SDR call within 1 hour; <= 2 self-serve trial email,AE meeting link
+first_line,AI column,all fields,One line for the SDR referencing the use cases and one enrichment fact,Saw you checked inbound orchestration and have 18 reps on Salesforce...
+crm_sync,Action,route,Create or update lead in CRM with fit_score and route,done

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clay is the only one of 4 GTM tools I checked that requires a phone number on the first step of its demo form | Gursimar Singh</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, Segoe UI, Helvetica, Arial, sans-serif;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 28px 20px 48px;
+      color: #1a1a1a;
+      line-height: 1.5;
+      background: #fff;
+    }
+    .kicker {
+      color: #555;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin: 0 0 8px;
+    }
+    h1 {
+      font-size: 1.65rem;
+      line-height: 1.25;
+      margin: 0 0 8px;
+      font-weight: 650;
+    }
+    .sub { color: #666; margin: 0 0 16px; font-size: 15px; }
+    .lede { margin: 0 0 18px; }
+    video {
+      width: 100%;
+      height: auto;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin: 0 0 20px;
+      background: #f5f5f5;
+      display: block;
+    }
+    h2 { font-size: 1rem; margin: 0 0 8px; }
+    ul { margin: 0 0 20px; padding-left: 1.2em; }
+    li { margin: 0 0 6px; }
+    .next {
+      background: #f5f5f5;
+      padding: 12px 16px;
+      border-radius: 6px;
+    }
+    footer { margin-top: 32px; color: #888; font-size: 14px; }
+    a { color: #1a1a1a; }
+    @media (max-width: 480px) {
+      body { padding-top: 20px; }
+      h1 { font-size: 1.35rem; }
+    }
+
+    .src { font-size: 14px; color: #555; }
+    .note { font-size: 14px; color: #555; background:#fff8e6; padding:8px 12px; border-radius:6px; }
+
+    .wrap { overflow-x:auto; margin:0 0 20px; border:1px solid #ddd; border-radius:8px; }
+    table.t { border-collapse:collapse; width:100%; font-size:13px; }
+    table.t th { text-align:left; background:#1a1a1a; color:#fff; padding:6px 8px; font-weight:600; position:sticky; top:0; }
+    table.t td { padding:6px 8px; border-bottom:1px solid #eee; vertical-align:top; }
+    table.t tr.hl td { background:#fff3cd; }
+    .fig { width:100%; height:auto; border:1px solid #ddd; border-radius:8px; margin:0 0 20px; display:block; }
+</style>
+</head>
+<body>
+  <p class="kicker">Demo-request teardown for Clay</p>
+  <h1>Clay is the only one of 4 GTM tools I checked that requires a phone number on the first step of its demo form</h1>
+  <p class="sub">Built by Gursimar Singh, Nov 2026, on real public data</p>
+  <p class="lede">I loaded the public demo-request pages for Clay, Apollo, Unify and Persana on Nov 22, 2026 and logged every field. Clay's first step has 4 required fields including phone, then a second step with a role picker and 13 use-case boxes but no team size question. Persana's booking embed showed "This Calendly URL is not valid."</p>
+  <div class="wrap"><table class="t"><tr><th>Company</th><th>Fields before submit</th><th>Required phone</th><th>Qualification questions</th><th>Company size or CRM asked</th></tr><tr class="hl"><td>Clay</td><td>4 (First name, Last name, Business email, phone)</td><td>yes</td><td>Step 2: role (5 options), 13 use-case boxes</td><td>no</td></tr><tr><td>Apollo</td><td>1 (email)</td><td>no</td><td>none on first step</td><td>no</td></tr><tr><td>Unify</td><td>6 (work email, first, last, sales reps, CRM, source)</td><td>no</td><td>sales rep count, CRM</td><td>yes, both</td></tr><tr><td>Persana</td><td>0 (Calendly embed)</td><td>no</td><td>none; embed showed &quot;This Calendly URL is not valid.&quot;</td><td>no</td></tr></table></div><h2>3 fixes for Clay's demo path</h2><ol>
+<li><b>Make phone optional on step 1.</b> Clay is the only one of the four that requires a phone number before submit; Apollo starts with email alone. Clay can enrich a phone after the meeting is booked.</li>
+<li><b>Don't ask what enrichment can answer, and ask the one thing it can't.</b> Neither step asks company size or CRM, which is fine since Clay can pull both from the domain, but none asks timeline or team size. Unify asks how many sales reps. One "how many reps would use Clay?" question would route seats-level deals faster.</li>
+<li><b>Route on the step-2 answers right away.</b> The role picker and 13 use-case boxes are strong routing inputs. Send RevOps + "Inbound lead orchestration" to a GTM engineer calendar on the thank-you page, and send agency answers to the partner team.</li></ol>
+<p class="note">The Clay table below (CSV) is my design for auto-qualifying these leads: inputs from the form, Clay enrichments on the domain, a fit score (my own heuristic) and a route. I only looked at public pages and did not submit any form, so reply timing isn't measured.</p>
+  <h2>How it works</h2>
+  <ul>
+    <li>Open each company's demo page in a headless Chrome and read every input, select and checkbox, including fields hidden until a later step.</li><li>Compare fields before submit, required phone, and which questions actually qualify the lead (role, use case, team size, CRM).</li><li>Turn the gaps into 3 fixes and a Clay table schema that would score and route these leads from the domain alone.</li>
+  </ul>
+  <p class="next"><b>What I'd improve next:</b> Submit test requests from a real work domain with permission, time the confirmation and first human reply for each tool over a week, and test the fit score against which demo requests became opportunities.</p>
+  <p><a href="clay.csv">Download the field-by-field teardown (CSV)</a></p><p><a href="clay_table_schema.csv">Download the Clay table schema (CSV)</a></p>
+  <h2>Sources</h2>
+  <ul class="src"><li><a href="https://jobs.ashbyhq.com/claylabs/7111f7da-3405-433a-8814-f2504c32210b">Clay, ClayDR (Ashby)</a></li><li><a href="https://www.clay.com/demo">Clay demo page</a></li><li><a href="https://www.apollo.io/demo">Apollo demo page</a></li><li><a href="https://www.unifygtm.com/get-started">Unify get started page</a></li><li><a href="https://persana.ai/book-a-demo">Persana book a demo page</a></li></ul>
+  <footer>Gursimar Singh · gursimarsb04@gmail.com · 848-218-9407</footer>
+</body>
+</html>

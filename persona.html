@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lime&#x27;s help page still tells riders to scan an ID first, though Persona&#x27;s case study says Lime&#x27;s selfie-first flow lifted conversion from 80% to 93% | Gursimar Singh</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, Segoe UI, Helvetica, Arial, sans-serif;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 28px 20px 48px;
+      color: #1a1a1a;
+      line-height: 1.5;
+      background: #fff;
+    }
+    .kicker {
+      color: #555;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin: 0 0 8px;
+    }
+    h1 {
+      font-size: 1.65rem;
+      line-height: 1.25;
+      margin: 0 0 8px;
+      font-weight: 650;
+    }
+    .sub { color: #666; margin: 0 0 16px; font-size: 15px; }
+    .lede { margin: 0 0 18px; }
+    video {
+      width: 100%;
+      height: auto;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin: 0 0 20px;
+      background: #f5f5f5;
+      display: block;
+    }
+    h2 { font-size: 1rem; margin: 0 0 8px; }
+    ul { margin: 0 0 20px; padding-left: 1.2em; }
+    li { margin: 0 0 6px; }
+    .next {
+      background: #f5f5f5;
+      padding: 12px 16px;
+      border-radius: 6px;
+    }
+    footer { margin-top: 32px; color: #888; font-size: 14px; }
+    a { color: #1a1a1a; }
+    @media (max-width: 480px) {
+      body { padding-top: 20px; }
+      h1 { font-size: 1.35rem; }
+    }
+
+    .src { font-size: 14px; color: #555; }
+    .note { font-size: 14px; color: #555; background:#fff8e6; padding:8px 12px; border-radius:6px; }
+
+    .wrap { overflow-x:auto; margin:0 0 20px; border:1px solid #ddd; border-radius:8px; }
+    table.t { border-collapse:collapse; width:100%; font-size:13px; }
+    table.t th { text-align:left; background:#1a1a1a; color:#fff; padding:6px 8px; font-weight:600; position:sticky; top:0; }
+    table.t td { padding:6px 8px; border-bottom:1px solid #eee; vertical-align:top; }
+    table.t tr.hl td { background:#fff3cd; }
+    .fig { width:100%; height:auto; border:1px solid #ddd; border-radius:8px; margin:0 0 20px; display:block; }
+</style>
+</head>
+<body>
+  <p class="kicker">Deployment audit of 3 Persona customers</p>
+  <h1>Lime&#x27;s help page still tells riders to scan an ID first, though Persona&#x27;s case study says Lime&#x27;s selfie-first flow lifted conversion from 80% to 93%</h1>
+  <p class="sub">Built by Gursimar Singh, Nov 2026, on real public data</p>
+  <p class="lede">The role runs audits of live Persona deployments and turns them into recommendations. I walked 3 Persona customers' public verification docs up to the ID step: OpenAI, Coursera and Lime. Each one has a gap a config change could close, from OpenAI rejecting mobile driver's licenses to Coursera having no non-biometric path.</p>
+  <p class="note">I did not create accounts or start any verification. Every step and friction point comes from the customer's own public help page or Persona's public case study and docs, quoted in the CSV. The recommendations are my suggestions, each tied to a Persona feature named in its public help center or product pages.</p><h2>OpenAI: API organization verification</h2><p><b>Flow up to the ID step (from public docs)</b></p><ul><li>Entry: a verification prompt or notice inside the API platform <span class="src">("Start from the verification prompt or follow the instructions in the notice you received." <a href="https://help.openai.com/en/articles/10910291-api-organization-verification">source</a>)</span></li><li>Pre-ID: business details for business verification (legal name, address, tax ID if requested) <span class="src">("Your organization’s legal name exactly as it appears in official records." <a href="https://help.openai.com/en/articles/10910291-api-organization-verification">source</a>)</span></li><li>ID step: original physical government ID, selfie if requested <span class="src">("You need an original, physical government-issued ID from one of our supported countries and territories, plus a device that can capture a cl..." <a href="https://help.openai.com/en/articles/10910291-api-organization-verification">source</a>)</span></li></ul><p><b>Friction</b></p><ul><li>Digital IDs and mobile driver&#x27;s licenses are rejected <span class="src">("Photocopies, screenshots, scans, electronic replicas, mobile driver’s licenses, or digital ID cards." <a href="https://help.openai.com/en/articles/10910291-api-organization-verification">source</a>)</span></li><li>A failed check is a dead end with no reason given <span class="src">("Verification results cannot be manually overridden, and additional details about a specific decision are not available." <a href="https://help.openai.com/en/articles/10910291-api-organization-verification">source</a>)</span></li><li>One person can verify only one org, which blocks consultants and agencies <span class="src">("For identity verification, individuals can verify only one account or organization." <a href="https://help.openai.com/en/articles/10910291-api-organization-verification">source</a>)</span></li></ul><p><b>3 config recommendations</b></p><ol><li>Turn on mDL / digital ID as an accepted method for developers who carry a wallet ID <span class="src">("Setting up Samsung Wallet and Google Wallet mDL verification" <a href="https://help.withpersona.com/verifications/introduction/using-verifications/">source</a>)</span></li><li>Add fallback ID types so a rejected first document can be retried with a second one in the same inquiry <span class="src">("Setting accepted fallback ID types for Government ID Verification" <a href="https://help.withpersona.com/verifications/introduction/using-verifications/">source</a>)</span></li><li>Send borderline fails to manual review in case management instead of a hard decline, and return a reason code the help article can map to <span class="src">("Manual review" <a href="https://withpersona.com/customers">source</a>)</span></li></ol><h2>Coursera: ID verification for certificates</h2><p><b>Flow up to the ID step (from public docs)</b></p><ul><li>Entry: Settings page, ID Verification section <span class="src">("Scroll down to the ID Verification section (you’ll only see this section if you’re enrolled in a class that requires it)." <a href="https://www.coursera.support/s/article/learner-000001213">source</a>)</span></li><li>Pre-ID: name, birthdate and ID country <span class="src">("Your first and last name, birthdate, and the country your ID is from" <a href="https://www.coursera.support/s/article/learner-000001213">source</a>)</span></li><li>ID step: photo of ID, then selfie (ID must pass first) <span class="src">("Your government ID must be verified before you can upload a selfie." <a href="https://www.coursera.support/s/article/learner-000001213">source</a>)</span></li></ul><p><b>Friction</b></p><ul><li>No non-biometric path at all <span class="src">("Coursera is unable at this time to offer alternative verification methods." <a href="https://www.coursera.support/s/article/learner-000001213">source</a>)</span></li><li>Outside the listed countries, passport is the only common ID <span class="src">("Additional Countries /  / Passport" <a href="https://www.coursera.support/s/article/learner-000001213">source</a>)</span></li><li>Help doc tells learners to switch to a computer or browser, a sign mobile capture fails <span class="src">("Try using a computer instead of a mobile device." <a href="https://www.coursera.support/s/article/learner-000001213">source</a>)</span></li></ul><p><b>3 config recommendations</b></p><ol><li>Prefill name and birthdate from the ID and compare, instead of typing them before the ID step <span class="src">("Configuring the Inquiry Comparison Check for Government ID Verification" <a href="https://help.withpersona.com/verifications/introduction/using-verifications/">source</a>)</span></li><li>Offer database verification as the non-biometric fallback in countries where it is supported <span class="src">("Setting match requirements for Database Verification (Non-US &amp; International)" <a href="https://help.withpersona.com/verifications/introduction/using-verifications/">source</a>)</span></li><li>Add per-country fallback ID types so learners outside the listed countries are not limited to passports <span class="src">("Setting accepted fallback ID types for Government ID Verification" <a href="https://help.withpersona.com/verifications/introduction/using-verifications/">source</a>)</span></li></ol><h2>Lime: Rider age verification</h2><p><b>Flow up to the ID step (from public docs)</b></p><ul><li>Entry: prompt before a ride in cities that require age checks <span class="src">("In some cities, you must verify your age before you can ride Lime vehicles." <a href="https://help.li.me/hc/en-us/articles/360039707834-Age-verification">source</a>)</span></li><li>ID step: scan a government ID before the ride, or enter info manually <span class="src">("If you need to verify your age, you’ll get prompted to scan your government-issued identification document before your ride." <a href="https://help.li.me/hc/en-us/articles/360039707834-Age-verification">source</a>)</span></li></ul><p><b>Friction</b></p><ul><li>The help page, last updated April 25, 2024, still describes an ID-scan-first flow <span class="src">("you’ll get prompted to scan your government-issued identification document before your ride." <a href="https://help.li.me/hc/en-us/articles/360039707834-Age-verification">source</a>)</span></li><li>Persona&#x27;s case study says Lime moved to selfie first, with ID only if the selfie suggests underage <span class="src">("it recently launched a verification flow that only requires riders to scan their ID if their selfie suggests that they’re underage." <a href="https://withpersona.com/customers/lime">source</a>)</span></li><li>Help page shows 281 of 448 riders found it helpful, so about 37% did not <span class="src">("281 out of 448 found this helpful" <a href="https://help.li.me/hc/en-us/articles/360039707834-Age-verification">source</a>)</span></li></ul><p><b>3 config recommendations</b></p><ol><li>Update the help page to match the selfie-first flow so riders know an ID may not be needed <span class="src">("Step-up verification" <a href="https://withpersona.com/product/verifications/selfie-age-estimation/">source</a>)</span></li><li>Tune age thresholds and buffers per city so fewer riders near the cutoff get stepped up to an ID scan <span class="src">("Configurable age thresholds and buffers" <a href="https://withpersona.com/product/verifications/selfie-age-estimation/">source</a>)</span></li><li>Route borderline selfies to the fallback method automatically and redact data after <span class="src">("route borderline users to fallback methods" <a href="https://withpersona.com/product/verifications/selfie-age-estimation/">source</a>)</span></li></ol>
+  <h2>How it works</h2>
+  <ul>
+    <li>Pick 3 customers from Persona's public customer page that also publish a help article on their own verification flow.</li><li>Log each flow from entry point to the ID step, plus friction, using only quotes from those public pages.</li><li>Match each friction point to a Persona feature documented in its help center (fallback ID types, mDL, database verification, age thresholds, manual review) and write 3 recommendations per customer.</li>
+  </ul>
+  <p class="next"><b>What I'd improve next:</b> Get permission to run test inquiries in each flow and time every step on mobile and desktop, then pull real drop-off by step from the Persona dashboard to rank which fix moves conversion most.</p>
+  <p><a href="persona.csv">Download the sheet (CSV)</a></p>
+  <h2>Sources</h2>
+  <ul class="src"><li><a href="https://jobs.ashbyhq.com/persona/a587a272-adf1-4805-9047-2ba9608f9e51">Persona, Product Deployment Strategist (Ashby)</a></li><li><a href="https://withpersona.com/customers">Persona customer stories</a></li><li><a href="https://help.openai.com/en/articles/10910291-api-organization-verification">OpenAI: API Organization Verification</a></li><li><a href="https://www.coursera.support/s/article/learner-000001213">Coursera: Verify your ID</a></li><li><a href="https://help.li.me/hc/en-us/articles/360039707834-Age-verification">Lime: Age verification</a></li><li><a href="https://withpersona.com/customers/openai">Persona case study: OpenAI</a></li><li><a href="https://withpersona.com/customers/coursera">Persona case study: Coursera</a></li><li><a href="https://withpersona.com/customers/lime">Persona case study: Lime</a></li><li><a href="https://help.withpersona.com/verifications/introduction/using-verifications/">Persona Help Center: Using Verifications</a></li><li><a href="https://withpersona.com/product/verifications/selfie-age-estimation/">Persona: Selfie age estimation</a></li></ul>
+  <footer>Gursimar Singh · gursimarsb04@gmail.com · 848-218-9407</footer>
+</body>
+</html>

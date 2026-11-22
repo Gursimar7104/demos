@@ -1,0 +1,16 @@
+company,step,field,type,required,qualification_question,evidence,page
+Clay,1 (visible on load),First name,text,yes,no,input name=first-name,https://www.clay.com/demo
+Clay,1 (visible on load),Last name,text,yes,no,input name=last-name,https://www.clay.com/demo
+Clay,1 (visible on load),Business email,email,yes,no,input name=email,https://www.clay.com/demo
+Clay,1 (visible on load),Phone,tel,yes,no,input name=phone,https://www.clay.com/demo
+Clay,"2 (in page markup, hidden on load)",Which best describes you?,select,see note,yes,options: Rev Ops / Sales Ops; Sales; Marketing / Demand Gen; Agency / Consultant; Other,https://www.clay.com/demo
+Clay,"2 (in page markup, hidden on load)",Use cases,checkbox x13,see note,yes,CRM enrichment; TAM Sourcing; CRM Clean up; Account / Lead Research + Scoring; GTM Copilot; ABM Campaigns; Inbound lead orchestration; AI Enrichments; AI Writing; Lead Enrichment; Intent signals; Automated outbound; Ads audiences,https://www.clay.com/demo
+Clay,"2 (in page markup, hidden on load)",How did you hear about us?,textarea,see note,no,name=message,https://www.clay.com/demo
+Apollo,1 (visible on load),Email,email,yes,no,Only field on the page before submit,https://www.apollo.io/demo
+Unify,1 (visible on load),Work Email,form field,yes,no,Default.com form text,https://www.unifygtm.com/get-started
+Unify,1 (visible on load),First Name,form field,yes,no,Default.com form text,https://www.unifygtm.com/get-started
+Unify,1 (visible on load),Last Name,form field,yes,no,Default.com form text,https://www.unifygtm.com/get-started
+Unify,1 (visible on load),How many Sales Reps does your company have?,form field,yes,yes,Default.com form text,https://www.unifygtm.com/get-started
+Unify,1 (visible on load),What CRM do you use?,form field,yes,yes,Default.com form text,https://www.unifygtm.com/get-started
+Unify,1 (visible on load),How did you hear about us?,form field,see note,no,Default.com form text,https://www.unifygtm.com/get-started
+Persana,1 (visible on load),Calendly booking embed,calendar,n/a,no,"Embed text: ""This Calendly URL is not valid.""",https://persana.ai/book-a-demo

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>4 of the top 5 new data sources for Percy are ownership registries with public APIs, and FinCEN&#x27;s BOI database now exempts US-formed companies | Gursimar Singh</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, Segoe UI, Helvetica, Arial, sans-serif;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 28px 20px 48px;
+      color: #1a1a1a;
+      line-height: 1.5;
+      background: #fff;
+    }
+    .kicker {
+      color: #555;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin: 0 0 8px;
+    }
+    h1 {
+      font-size: 1.65rem;
+      line-height: 1.25;
+      margin: 0 0 8px;
+      font-weight: 650;
+    }
+    .sub { color: #666; margin: 0 0 16px; font-size: 15px; }
+    .lede { margin: 0 0 18px; }
+    video {
+      width: 100%;
+      height: auto;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin: 0 0 20px;
+      background: #f5f5f5;
+      display: block;
+    }
+    h2 { font-size: 1rem; margin: 0 0 8px; }
+    ul { margin: 0 0 20px; padding-left: 1.2em; }
+    li { margin: 0 0 6px; }
+    .next {
+      background: #f5f5f5;
+      padding: 12px 16px;
+      border-radius: 6px;
+    }
+    footer { margin-top: 32px; color: #888; font-size: 14px; }
+    a { color: #1a1a1a; }
+    @media (max-width: 480px) {
+      body { padding-top: 20px; }
+      h1 { font-size: 1.35rem; }
+    }
+
+    .src { font-size: 14px; color: #555; }
+    .note { font-size: 14px; color: #555; background:#fff8e6; padding:8px 12px; border-radius:6px; }
+
+    .wrap { overflow-x:auto; margin:0 0 20px; border:1px solid #ddd; border-radius:8px; }
+    table.t { border-collapse:collapse; width:100%; font-size:13px; }
+    table.t th { text-align:left; background:#1a1a1a; color:#fff; padding:6px 8px; font-weight:600; position:sticky; top:0; }
+    table.t td { padding:6px 8px; border-bottom:1px solid #eee; vertical-align:top; }
+    table.t tr.hl td { background:#fff3cd; }
+    .fig { width:100%; height:auto; border:1px solid #ddd; border-radius:8px; margin:0 0 20px; display:block; }
+</style>
+</head>
+<body>
+  <p class="kicker">Financial-crime data source map for Footprint</p>
+  <h1>4 of the top 5 new data sources for Percy are ownership registries with public APIs, and FinCEN&#x27;s BOI database now exempts US-formed companies</h1>
+  <p class="sub">Built by Gursimar Singh, Nov 2026, on real public data</p>
+  <p class="lede">The role's biggest job is finding which data vendors are real and getting them signed. I mapped 21 sanctions/PEP, adverse media, ownership and device/IP sources from their own public pages and ranked them for Percy's KYB and EDD cases. Only 9 of the 21 put a price or free access on the page, so most of the list is a negotiation, not a checkout.</p>
+  <p class="note">Percy score is my own heuristic, 0-8: real API (2) or file download (1); price or free access stated on the page (1); sanctions/PEP, adverse media or ownership data (2) vs device/IP (1, Footprint already ships fraud signals); primary government source (1). Minus 2 if Footprint's site already names it as a Percy integration, minus 1 if the vendor also sells competing compliance agents, minus 4 if the source is unusable. Coverage cells are quotes from each source's own page, fetched Nov 22, 2026.</p><div class="wrap"><table class="t"><tr><th>#</th><th>Source</th><th>Category</th><th>Score</th><th>Access</th><th>Pricing model</th><th>Coverage (quoted)</th><th>Flag</th></tr><tr class="hl"><td>1</td><td><a href="https://www.gleif.org/en/lei-data/access-and-use-lei-data">GLEIF LEI data and API</a></td><td>Ownership/registry</td><td>6/8</td><td>API</td><td>Free</td><td>who is who and who owns whom free of charge</td><td></td></tr><tr class="hl"><td>2</td><td><a href="https://www.sec.gov/search-filings/edgar-application-programming-interfaces">SEC EDGAR APIs</a></td><td>Ownership/registry</td><td>6/8</td><td>API</td><td>No API key required; no fee stated</td><td>submissions history by filer and the XBRL data from financial statements</td><td>US public filers only</td></tr><tr class="hl"><td>3</td><td><a href="https://blog.gdeltproject.org/gdelt-doc-2-0-api-debuts/">GDELT DOC 2.0 API</a></td><td>Adverse media</td><td>5/8</td><td>API</td><td>Free open platform</td><td>you can search across all 65 machine translated languages supported by GDELT</td><td>Raw news events; needs entity resolution and noise filtering</td></tr><tr class="hl"><td>4</td><td><a href="https://opencorporates.com/pricing/">OpenCorporates</a></td><td>Ownership/registry</td><td>5/8</td><td>API</td><td>API plans from GBP 2,250/year (500 calls/month)</td><td>Plug the world&#x27;s largest open legal-entity database direct into your ap</td><td></td></tr><tr class="hl"><td>5</td><td><a href="https://developer.company-information.service.gov.uk/">UK Companies House API</a></td><td>Ownership/registry</td><td>5/8</td><td>API</td><td>No fee stated on fetched page</td><td>The Companies House API lets you retrieve information about limited companies</td><td></td></tr><tr><td>6</td><td><a href="https://www.opensanctions.org/api/">OpenSanctions</a></td><td>Sanctions/PEP</td><td>5/8</td><td>API</td><td>Per-query credit bundles, EUR 0.10 down to EUR 0.03 per query; bulk license separate</td><td>Sources 490+ Entities 1.8mn+</td><td></td></tr><tr><td>7</td><td><a href="https://www.dowjones.com/business-intelligence/risk/products/data/">Dow Jones Factiva</a></td><td>Adverse media</td><td>4/8</td><td>API</td><td>Not published; sales-led</td><td>it has secured those rights from more than 8,600 sources in more than 30 languages</td><td></td></tr><tr><td>8</td><td><a href="https://fingerprint.com/pricing/">Fingerprint</a></td><td>Device/IP</td><td>4/8</td><td>API</td><td>Free tier, then $99/month for 20K API calls + $4 per 1,000</td><td>Web and mobile device identification</td><td></td></tr><tr><td>9</td><td><a href="https://www.maxmind.com/en/solutions/minfraud-services/pricing">MaxMind minFraud</a></td><td>Device/IP</td><td>4/8</td><td>API</td><td>Per query, $0.005 (Score) to $0.020 (Factors)</td><td>Get transaction and IP risk scores plus over 80 data points on IPs, emails, devic</td><td></td></tr><tr><td>10</td><td><a href="https://www.middesk.com/">Middesk (US KYB)</a></td><td>Ownership/registry</td><td>4/8</td><td>API</td><td>Not published on fetched page</td><td>cross-reference across 400+ sources</td><td></td></tr><tr><td>11</td><td><a href="https://data.europa.eu/api/hub/search/datasets/consolidated-list-of-persons-groups-and-entities-subject-to-eu-financial-sanctions">EU consolidated financial sanctions list</a></td><td>Sanctions/PEP</td><td>4/8</td><td>File download</td><td>Government XML/CSV file; no fee stated on page</td><td>Consolidated list of persons, groups and entities subject to EU financial sanctions</td><td></td></tr><tr><td>12</td><td><a href="https://ofac.treasury.gov/sanctions-list-service">OFAC Sanctions List Service (US Treasury)</a></td><td>Sanctions/PEP</td><td>4/8</td><td>File download</td><td>Government download; no fee stated on page</td><td>Users can choose to download from either the Specially Designated Nationals (SDN) List or the Consolidated (non-SDNs) List</td><td></td></tr><tr><td>13</td><td><a href="https://www.gov.uk/government/publications/the-uk-sanctions-list">UK Sanctions List (FCDO)</a></td><td>Sanctions/PEP</td><td>4/8</td><td>File download</td><td>Government download; no fee stated on page</td><td>The UK Sanctions List is now the only source for all UK sanctions designations</td><td>OFSI Consolidated List closed 28 Jan 2026; switch feeds to the UK Sanctions List</td></tr><tr><td>14</td><td><a href="https://main.un.org/securitycouncil/en/content/un-sc-consolidated-list">UN Security Council Consolidated List</a></td><td>Sanctions/PEP</td><td>4/8</td><td>File download</td><td>Government download; no fee stated on page</td><td>Individuals (733 individuals) Entities and other groups (274 entities)</td><td></td></tr><tr><td>15</td><td><a href="https://www.sanctions.io/">sanctions.io</a></td><td>Sanctions/PEP</td><td>4/8</td><td>API</td><td>Usage-based; figures not on fetched page</td><td>100+ Data Sources</td><td></td></tr><tr><td>16</td><td><a href="https://www.lseg.com/en/risk-intelligence/screening-solutions/world-check-kyc-screening">LSEG World-Check</a></td><td>Sanctions/PEP + adverse media</td><td>4/8</td><td>API</td><td>Not published; sales-led</td><td>reputable public-domain sources, with distinctions maintained between allegations, investigations, charges and convictions</td><td></td></tr><tr><td>17</td><td><a href="https://docs.spur.us/">Spur</a></td><td>Device/IP</td><td>3/8</td><td>API</td><td>Not on fetched docs page</td><td>detect VPNs, residential proxies, and bots</td><td></td></tr><tr><td>18</td><td><a href="https://seon.io/pricing/">SEON</a></td><td>Device/IP + fraud</td><td>3/8</td><td>API</td><td>Starter $699/month for 2,500 checks</td><td>SEON platform &amp; API access 2,500 fraud checks / month</td><td>Also sells AML screening (overlaps with Percy)</td></tr><tr><td>19</td><td><a href="https://www.castellum.ai/pricing">Castellum.AI</a></td><td>Sanctions/PEP + adverse media</td><td>3/8</td><td>API</td><td>Not shown on fetched pricing page</td><td>Sanctions &amp; PEPs Screening AI-Powered Adverse Media Screening</td><td>Also sells compliance AI agents (overlaps with Percy)</td></tr><tr><td>20</td><td><a href="https://complyadvantage.com/pricing/">ComplyAdvantage</a></td><td>Sanctions/PEP + adverse media</td><td>3/8</td><td>API</td><td>Tiered plans; Essentials from $99 per month by monitored entities</td><td>Adverse Media Sanctions &amp; Watchlists PEPs &amp; RCAs</td><td>Already named as a Percy integration on onefootprint.com</td></tr><tr><td>21</td><td><a href="https://www.fincen.gov/boi">FinCEN BOI database</a></td><td>Ownership/registry</td><td>-1/8</td><td>None</td><td>Not a usable feed for US-formed companies</td><td>FinCEN also exempts entities previously known as “domestic reporting companies” from BOI reporti</td><td>US-created entities exempt from BOI reporting; do not plan on this source</td></tr></table></div>
+  <h2>How it works</h2>
+  <ul>
+    <li>Start from the four data types Percy's cases need (sanctions/PEP, adverse media, ownership registries, device/IP) and pick government, open and commercial sources for each.</li><li>Fetch each source's own pricing, docs or dataset page and quote what it actually says about coverage, API access and price. Anything not on the page is marked not published.</li><li>Score each source with the rubric above, subtract ones Footprint already integrates or that compete with Percy, and flag legitimacy issues like the FinCEN BOI exemption and the closed OFSI list.</li>
+  </ul>
+  <p class="next"><b>What I'd improve next:</b> Back-test the top 5 against 50 closed Percy cases to see which ones would have changed an outcome, get real quotes from the sales-led vendors (World-Check, Factiva, Middesk), and add US state registries since BOI no longer covers US-formed companies.</p>
+  <p><a href="footprint.csv">Download the sheet (CSV)</a></p>
+  <h2>Sources</h2>
+  <ul class="src"><li><a href="https://jobs.ashbyhq.com/footprint/32cb9ea5-757c-4f7b-9dbd-e580bf75e3dc">Footprint, Founding Strategy &amp; Ops (Ashby)</a></li><li><a href="https://www.onefootprint.com">Footprint homepage (Percy integrations named)</a></li><li><a href="https://www.gleif.org/en/lei-data/access-and-use-lei-data">GLEIF LEI data and API</a></li><li><a href="https://www.sec.gov/search-filings/edgar-application-programming-interfaces">SEC EDGAR APIs</a></li><li><a href="https://blog.gdeltproject.org/gdelt-doc-2-0-api-debuts/">GDELT DOC 2.0 API</a></li><li><a href="https://www.gdeltproject.org/">GDELT DOC 2.0 API</a></li><li><a href="https://opencorporates.com/pricing/">OpenCorporates</a></li><li><a href="https://developer.company-information.service.gov.uk/">UK Companies House API</a></li><li><a href="https://developer-specs.company-information.service.gov.uk/">UK Companies House API</a></li><li><a href="https://www.opensanctions.org/api/">OpenSanctions</a></li><li><a href="https://www.dowjones.com/business-intelligence/risk/products/data/">Dow Jones Factiva</a></li><li><a href="https://fingerprint.com/pricing/">Fingerprint</a></li><li><a href="https://www.maxmind.com/en/solutions/minfraud-services/pricing">MaxMind minFraud</a></li><li><a href="https://www.middesk.com/">Middesk (US KYB)</a></li><li><a href="https://data.europa.eu/api/hub/search/datasets/consolidated-list-of-persons-groups-and-entities-subject-to-eu-financial-sanctions">EU consolidated financial sanctions list</a></li><li><a href="https://ofac.treasury.gov/sanctions-list-service">OFAC Sanctions List Service (US Treasury)</a></li><li><a href="https://www.gov.uk/government/publications/the-uk-sanctions-list">UK Sanctions List (FCDO)</a></li><li><a href="https://main.un.org/securitycouncil/en/content/un-sc-consolidated-list">UN Security Council Consolidated List</a></li><li><a href="https://www.sanctions.io/">sanctions.io</a></li><li><a href="https://www.lseg.com/en/risk-intelligence/screening-solutions/world-check-kyc-screening">LSEG World-Check</a></li><li><a href="https://docs.spur.us/">Spur</a></li><li><a href="https://seon.io/pricing/">SEON</a></li><li><a href="https://www.castellum.ai/pricing">Castellum.AI</a></li><li><a href="https://complyadvantage.com/pricing/">ComplyAdvantage</a></li><li><a href="https://www.fincen.gov/boi">FinCEN BOI database</a></li></ul>
+  <footer>Gursimar Singh · gursimarsb04@gmail.com · 848-218-9407</footer>
+</body>
+</html>
