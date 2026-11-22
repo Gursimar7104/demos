@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>3 recently funded companies that will have to send a lot of messages | Gursimar Singh</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, Segoe UI, Helvetica, Arial, sans-serif;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 28px 20px 48px;
+      color: #1a1a1a;
+      line-height: 1.5;
+      background: #fff;
+    }
+    .kicker {
+      color: #555;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin: 0 0 8px;
+    }
+    h1 {
+      font-size: 1.65rem;
+      line-height: 1.25;
+      margin: 0 0 8px;
+      font-weight: 650;
+    }
+    .sub { color: #666; margin: 0 0 16px; font-size: 15px; }
+    .lede { margin: 0 0 18px; }
+    video {
+      width: 100%;
+      height: auto;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin: 0 0 20px;
+      background: #f5f5f5;
+      display: block;
+    }
+    h2 { font-size: 1rem; margin: 0 0 8px; }
+    ul { margin: 0 0 20px; padding-left: 1.2em; }
+    li { margin: 0 0 6px; }
+    .next {
+      background: #f5f5f5;
+      padding: 12px 16px;
+      border-radius: 6px;
+    }
+    footer { margin-top: 32px; color: #888; font-size: 14px; }
+    a { color: #1a1a1a; }
+    @media (max-width: 480px) {
+      body { padding-top: 20px; }
+      h1 { font-size: 1.35rem; }
+    }
+
+    .src { font-size: 14px; color: #555; }
+    .note { font-size: 14px; color: #555; background:#fff8e6; padding:8px 12px; border-radius:6px; margin:0 0 16px; }
+
+    .wrap { overflow-x:auto; margin:0 0 20px; border:1px solid #ddd; border-radius:8px; }
+    table.t { border-collapse:collapse; width:100%; font-size:13px; }
+    table.t th { text-align:left; background:#1a1a1a; color:#fff; padding:6px 8px; font-weight:600; position:sticky; top:0; }
+    table.t td { padding:6px 8px; border-bottom:1px solid #eee; vertical-align:top; }
+    table.t tr.hl td { background:#fff3cd; }
+    .fig { width:100%; height:auto; border:1px solid #ddd; border-radius:8px; margin:0 0 20px; display:block; }
+</style>
+</head>
+<body>
+  <p class="kicker">Lead list for Sent · GTM Engineer</p>
+  <h1>3 recently funded companies that will have to send a lot of messages</h1>
+  <p class="sub">Built by Gursimar Singh, Nov 22, 2026, on real public data</p>
+  <p class="lede">Sent is a single API for SMS, WhatsApp, and RCS, aimed at ecommerce, SaaS, fintech, and healthcare teams. The Treg funding feed from Nov 22 was thin on those buyers (it skewed to mega-rounds and VC funds), so I only kept rows I could source and match to a messaging use case. I would rather hand you three honest accounts than invent a dozen.</p>
+  <p class="note">Method: same GetLeads / Treg US funding pull. I dropped fund raises, chip/biotech mega-rounds, and any row where I could not explain why they would send A2P traffic. Payhawk is the cleanest fintech fit. Titan OS is a consumer expansion bet. Harbinger is a stretch, scored 60, and is in the CSV so you can throw it out.</p><div class="wrap"><table class="t"><tr><th>company</th><th>score</th><th>signal</th><th>why_icp</th><th>suggested_contact_title</th><th>first_line</th></tr><tr><td><a href="https://techcrunch.com/2026/11/18/spend-management-platform-payhawk-announces-280m-raise-2b-valuation/">Payhawk</a></td><td>84</td><td>2026-11-18: $280M raise at a $2B valuation (Nov 18). Spend-management / AI finance platform that has to notify employees, vendors, and approvers at high volume.</td><td>Sent&#x27;s own site lists fintech and authentication, alerts, and campaign use cases. A spend platform at this scale is a classic A2P sender (approvals, receipts, fraud alerts). Size is the caveat, so it is not scored as a seed account.</td><td>Head of Engineering or Head of Product (messaging / notifications)</td><td>A $280M raise on a spend platform usually means approval, receipt, and fraud messages have to land, and failover across SMS and WhatsApp stops being optional.</td></tr><tr><td><a href="https://techcrunch.com/2026/11/04/titan-os-raises-46-million-to-expand-its-smart-tv-os-internationally/">Titan OS</a></td><td>73</td><td>2026-11-04: Raised $46M to expand its smart TV OS internationally (TechCrunch, Nov 4).</td><td>International consumer expansion is a notifications problem (account, billing, device, marketing). I did not find an official domain in the funding article, so the source is the TechCrunch piece only and the score stays mid-range.</td><td>Head of Growth or Head of Consumer Product</td><td>A $46M raise to take a smart TV OS international is usually when device, billing, and account messages have to work in every new market.</td></tr><tr><td><a href="https://techcrunch.com/2026/11/05/harbinger-raises-240m-after-expanding-into-defense/">Harbinger</a></td><td>60</td><td>2026-11-05: Raised $240M after expanding into defense (TechCrunch, Nov 5).</td><td>Weaker ICP fit (vehicles / defense, not a consumer or fintech messaging stack). Included only because the raise is real and operations at that scale still need reliable outbound messages. Low score on purpose.</td><td>Head of Operations</td><td>A $240M raise and a defense expansion is a stretch for a messaging API, but ops and compliance alerts get unforgiving at that scale.</td></tr></table></div>
+  <h2>How it was built</h2>
+  <ul>
+    <li>Start with a clear ICP from the company's own site or job post, not a generic employee-count filter.</li>
+    <li>Keep only accounts with a dated funding or capital event in the last ~90 days (or, for roll-up platforms, a dated 2025-2026 add-on or close), plus a second buyer signal.</li>
+    <li>Score 1-100 on recency, how tightly the account matches the ICP, and how usable the second signal is for a first line.</li>
+    <li>Every row has a source link. Nothing here is invented.</li>
+  </ul>
+  <p class="next"><b>What I'd improve next:</b> Use a seed/Series A-heavy funding source, then keep fintech, ecommerce, and healthcare companies that are also hiring for lifecycle, notifications, or growth, so the list can get to 10-15 real rows.</p>
+  <p><a href="sent.csv">Download the sheet (CSV)</a></p>
+  <h2>Sources</h2>
+  <ul class="src"><li><a href="https://www.getleads.io/docs/#get-apiv1fundingsignals">Treg / GetLeads recent US funding feed, pulled Nov 22, 2026</a></li><li><a href="https://techcrunch.com/2026/11/18/spend-management-platform-payhawk-announces-280m-raise-2b-valuation/">TechCrunch: Payhawk $280M (Nov 18, 2026)</a></li><li><a href="https://payhawk.com/en-us">Payhawk site</a></li><li><a href="https://techcrunch.com/2026/11/04/titan-os-raises-46-million-to-expand-its-smart-tv-os-internationally/">TechCrunch: Titan OS $46M (Nov 4, 2026)</a></li><li><a href="https://jobs.ashbyhq.com/sent/abc94a51-6164-4934-8cb1-8af0c5f5ec58">Sent GTM Engineer job</a></li><li><a href="https://sent.dev/about">Sent about page (ICP and team)</a></li></ul>
+  <footer>Gursimar Singh · gursimarsb04@gmail.com · 848-218-9407</footer>
+</body>
+</html>
