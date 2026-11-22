@@ -30,15 +30,6 @@
     }
     .sub { color: #666; margin: 0 0 16px; font-size: 15px; }
     .lede { margin: 0 0 18px; }
-    video {
-      width: 100%;
-      height: auto;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      margin: 0 0 20px;
-      background: #f5f5f5;
-      display: block;
-    }
     h2 { font-size: 1rem; margin: 0 0 8px; }
     ul { margin: 0 0 20px; padding-left: 1.2em; }
     li { margin: 0 0 6px; }
@@ -63,11 +54,6 @@
   <h1>3 of 3 server faults caught by a read-only MCP check, and 3 of 3 cleared by heal.sh</h1>
   <p class="sub">Built by Gursimar Singh, Nov 2026</p>
   <p class="lede">Your post describes a box with a service that won&#x27;t stay up, a nightly report that stopped, and a disk that keeps filling. I built my own small lab with those three fault types (not your opsbox challenge, since you asked that solutions stay private), a TypeScript MCP server an agent can call to check on it without being able to change anything, and a heal script. The check flagged all 3 faults, and it also caught my first heal.sh: it reported success while the disk was still 100% full, so 2 of 3 checks still failed until I fixed it.</p>
-  <video autoplay loop muted playsinline poster="stratirus_poster.jpg" width="1120" height="664">
-    <source src="stratirus.webm" type="video/webm">
-    <source src="stratirus.mp4" type="video/mp4">
-    <img src="stratirus_poster.jpg" alt="Read-only MCP health check for a broken Ubuntu-style box">
-  </video>
   <h2>The MCP server (src/server.ts)</h2><pre style="background:#f6f8fa;padding:12px;border-radius:6px;overflow:auto;font-size:12.5px;line-height:1.45"><code>// Read-only MCP server: lets an AI agent check a box&#x27;s health without being able to change it.
 // No tool writes files, kills processes or runs shell commands; every path is fixed under LAB_ROOT.
 import { McpServer } from &quot;@modelcontextprotocol/sdk/server/mcp.js&quot;;

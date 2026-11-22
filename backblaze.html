@@ -30,15 +30,6 @@
     }
     .sub { color: #666; margin: 0 0 16px; font-size: 15px; }
     .lede { margin: 0 0 18px; }
-    video {
-      width: 100%;
-      height: auto;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      margin: 0 0 20px;
-      background: #f5f5f5;
-      display: block;
-    }
     h2 { font-size: 1rem; margin: 0 0 8px; }
     ul { margin: 0 0 20px; padding-left: 1.2em; }
     li { margin: 0 0 6px; }
@@ -63,11 +54,6 @@
   <h1>Backblaze lists CoreWeave as a free-egress partner, so training reads from B2 into CoreWeave GPUs skip the $0.01/GB overage</h1>
   <p class="sub">Built by Gursimar Singh, Nov 2026</p>
   <p class="lede">The post says an SE shows where Backblaze slots into a customer's AI pipeline. I mapped a common setup, S3-based training on CoreWeave, from ingest to checkpoints and archive, using only Backblaze's own pages. One thing the math shows: on a cloud that isn't a partner, Overdrive's list price beats standard B2 plus overage once a dataset is read about 3.8 times a month.</p>
-  <video autoplay loop muted playsinline poster="backblaze_poster.jpg" width="1120" height="664">
-    <source src="backblaze.webm" type="video/webm">
-    <source src="backblaze.mp4" type="video/mp4">
-    <img src="backblaze_poster.jpg" alt="GPU training pipeline map for Backblaze">
-  </video>
   <p><a href="backblaze_diagram.svg">Open the diagram (SVG)</a></p>
 <h2>Discovery questions</h2><ul><li><b>Workload:</b> What are you training (modality, model size) and how big is the dataset today and in 12 months?</li><li><b>Workload:</b> How many full passes over the data does a run make per month, and how many runs overlap?</li><li><b>Compute:</b> Which GPU clouds do you train on now, and which might you add? Is it all CoreWeave?</li><li><b>Data path:</b> How do data loaders read today: S3 API, POSIX mount, or a cache tier such as WEKA or local NVMe?</li><li><b>Throughput:</b> What aggregate read throughput keeps your GPUs busy, and where do they wait today?</li><li><b>Checkpoints:</b> How big is a checkpoint, how often do you write one, and how many do you keep?</li><li><b>Recovery:</b> When a run fails, how long does restoring the last checkpoint take, and what does an idle hour of the cluster cost you?</li><li><b>Governance:</b> Do weights or datasets need immutability, a second region, or a BAA?</li><li><b>Current stack:</b> What storage are you replacing, and what does egress cost you there each month?</li><li><b>Migration:</b> How much data has to move in, from where, and by when?</li><li><b>Decision:</b> Who signs off on a storage change, and what result in a POC would make it an easy yes?</li></ul>
 <h2>What a proof of concept would test</h2>

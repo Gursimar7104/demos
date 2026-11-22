@@ -30,15 +30,6 @@
     }
     .sub { color: #666; margin: 0 0 16px; font-size: 15px; }
     .lede { margin: 0 0 18px; }
-    video {
-      width: 100%;
-      height: auto;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      margin: 0 0 20px;
-      background: #f5f5f5;
-      display: block;
-    }
     h2 { font-size: 1rem; margin: 0 0 8px; }
     ul { margin: 0 0 20px; padding-left: 1.2em; }
     li { margin: 0 0 6px; }
@@ -63,11 +54,6 @@
   <h1>Claude filled 80 of 80 Bullhorn fields right on 10 test screening calls, and my rules still sent 7 to a recruiter</h1>
   <p class="sub">Built by Gursimar Singh, Nov 2026</p>
   <p class="lede">I mapped one AI voice screening flow for a staffing firm, the use case in your post: an 8-question call script, the Bullhorn Candidate fields each answer writes, and the routing rules. On 10 synthetic calls, Claude's field values matched my answer key on 80 of 80 fields, and plain code caught the 4 calls with a missing or vague answer before anything synced. Only 2 were ready to submit; 1 was stopped on work authorization.</p>
-  <video autoplay loop muted playsinline poster="whippy_poster.jpg" width="1120" height="664">
-    <source src="whippy.webm" type="video/webm">
-    <source src="whippy.mp4" type="video/mp4">
-    <img src="whippy_poster.jpg" alt="AI voice screening workflow for Whippy">
-  </video>
   <p class="note"><b>Synthetic calls.</b> The 10 transcripts are written by me for the prototype. Field names and types are from Bullhorn's public REST entity reference.</p>
 <h2>Call script and the Bullhorn fields it writes back</h2>
 <table style="border-collapse:collapse;font-size:14px;margin:0 0 8px;width:100%"><tr style="text-align:left;background:#f0f0f0"><th style="padding:6px">Agent asks</th><th style="padding:6px">Candidate field</th><th style="padding:6px">Type</th><th style="padding:6px">Rule</th></tr><tr><td>Are you authorized to work in the US?</td><td><code>workAuthorized</code></td><td>Boolean</td><td>No = stop, mark not qualified</td></tr><tr><td>When can you start?</td><td><code>dateAvailable</code></td><td>Timestamp</td><td>Must be a real date on or after the call</td></tr><tr><td>Lowest hourly rate you would take?</td><td><code>hourlyRateLow</code></td><td>BigDecimal</td><td>Above the $20 max goes to a recruiter</td></tr><tr><td>How far can you travel to work?</td><td><code>travelLimit</code></td><td>Integer (miles)</td><td>Under the 12-mile site distance goes to a recruiter</td></tr><tr><td>Full time, part time, or temp?</td><td><code>employmentPreference</code></td><td>String (200)</td><td>Must match the picklist</td></tr><tr><td>Years working in a warehouse?</td><td><code>experience</code></td><td>Integer</td><td>Whole years only</td></tr><tr><td>Do you have a forklift certification?</td><td><code>certifications</code></td><td>String</td><td>Expired or none goes to a recruiter</td></tr><tr><td>OK to text you shift updates?</td><td><code>smsOptIn</code></td><td>Boolean</td><td>No = call only, never text</td></tr></table>
