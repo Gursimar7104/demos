@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AgentPhone rate card vs a general CPaaS price list | Gursimar Singh</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, Segoe UI, Helvetica, Arial, sans-serif;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 28px 20px 48px;
+      color: #1a1a1a;
+      line-height: 1.5;
+      background: #fff;
+    }
+    .kicker {
+      color: #555;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin: 0 0 8px;
+    }
+    h1 {
+      font-size: 1.65rem;
+      line-height: 1.25;
+      margin: 0 0 8px;
+      font-weight: 650;
+    }
+    .sub { color: #666; margin: 0 0 16px; font-size: 15px; }
+    .lede { margin: 0 0 18px; }
+    h2 { font-size: 1rem; margin: 22px 0 8px; }
+    ul { margin: 0 0 20px; padding-left: 1.2em; }
+    li { margin: 0 0 6px; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0 0 20px;
+      font-size: 14px;
+    }
+    th, td {
+      text-align: left;
+      padding: 8px 10px;
+      border-bottom: 1px solid #eee;
+      vertical-align: top;
+    }
+    th { color: #555; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.03em; }
+    .next {
+      background: #f5f5f5;
+      padding: 12px 16px;
+      border-radius: 6px;
+    }
+    footer { margin-top: 32px; color: #888; font-size: 14px; }
+    a { color: #1a1a1a; }
+    @media (max-width: 480px) {
+      body { padding-top: 20px; }
+      h1 { font-size: 1.35rem; }
+    }
+    .src { font-size: 13px; color: #555; }
+    .note { font-size: 14px; color: #555; background:#fff8e6; padding:8px 12px; border-radius:6px; }
+    .flow { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin: 0 0 20px; }
+    .step { background:#f5f5f5; border-radius:6px; padding:10px 12px; flex:1 1 140px; font-size:14px; }
+    .arrow { color:#888; }
+    .seq { border-left: 3px solid #ddd; padding-left: 14px; margin: 0 0 20px; }
+    .seq h3 { margin: 0 0 4px; font-size: 15px; }
+    .seq p { margin: 0 0 14px; }
+</style>
+</head>
+<body>
+  <p class="kicker">Pricing and docs teardown for AgentPhone</p>
+  <h1>AgentPhone publishes a one-page agent rate card. A voice-AI buyer still has to assemble the same math from a general CPaaS price list.</h1>
+  <p class="sub">Built by Gursimar Singh, Nov 2026</p>
+  <p class="lede">The Founding GTM Engineer role is about helping voice-AI and agent companies discover and adopt AgentPhone. I used only public pages to see how a first-time buyer would compare cost and setup.</p>
+  
+    <p class="note">This is not a missing-page audit. AgentPhone already ships docs, MCP support, and a public price list. The gap is how clearly that package is explained next to the tools buyers already know.</p>
+    <h2>What a buyer can learn in one minute on AgentPhone</h2>
+    <table>
+      <tr><th>Item</th><th>Public AgentPhone figure</th><th>Source</th></tr>
+      <tr><td>Local US or Canada number</td><td>$3 per number per month, voice and messaging enabled</td><td class="src"><a href="https://agentphone.ai/pricing">agentphone.ai/pricing</a></td></tr>
+      <tr><td>Voice, your agent over a webhook</td><td>13¢ per minute, billed per second</td><td class="src"><a href="https://agentphone.ai/pricing">pricing</a></td></tr>
+      <tr><td>Hosted agent voice</td><td>22¢ per minute</td><td class="src"><a href="https://agentphone.ai/pricing">pricing</a></td></tr>
+      <tr><td>SMS</td><td>2¢ per segment, same in and out</td><td class="src"><a href="https://agentphone.ai/pricing">pricing</a></td></tr>
+      <tr><td>Signup credit / minimum</td><td>$5 starting credit, no monthly minimum, no contract</td><td class="src"><a href="https://agentphone.ai/pricing">pricing</a></td></tr>
+      <tr><td>Their own example month</td><td>3 numbers, 1,500 voice minutes, 10,000 SMS = $404</td><td class="src"><a href="https://agentphone.ai/pricing">pricing calculator</a></td></tr>
+      <tr><td>Setup path</td><td>One webhook for voice and messages; Python, Node, REST, or MCP</td><td class="src"><a href="https://agentphone.ai/">homepage</a> and <a href="https://docs.agentphone.ai/welcome">docs welcome</a></td></tr>
+    </table>
+    <h2>What the same buyer sees at a general CPaaS</h2>
+    <p>Twilio publishes a US Programmable Voice pricing page, but the public HTML I loaded does not show a single starter bundle the way AgentPhone does. A buyer still has to add number rent, inbound and outbound minutes, messaging, and any AI add-ons from separate lists. <span class="src">Source: <a href="https://www.twilio.com/en-us/voice/pricing/us">Twilio US Programmable Voice pricing</a> and <a href="https://www.twilio.com/en-us/pricing">Twilio pricing hub</a>.</span></p>
+    <p>Telnyx likewise sends buyers to a product and pricing catalog rather than one agent-sized monthly example. <span class="src">Source: <a href="https://telnyx.com/pricing">telnyx.com/pricing</a>.</span></p>
+    <div class="next">
+      <h2>What I would test next</h2>
+      <p>A one-screen “first 30 days for a voice-agent team” calculator that starts from AgentPhone’s $404 example and asks the buyer to paste their current Twilio or Telnyx invoice lines. The Founding GTM role already owns experiments at the top of the funnel; this is one a developer buyer could finish without a call.</p>
+    </div>
+    
+  <footer>Gursimar Singh · <a href="https://linkedin.com/in/gursimargtm">linkedin.com/in/gursimargtm</a> · 848-218-9407</footer>
+</body>
+</html>
