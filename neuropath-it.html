@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>2 of 8 sample IT tickets carried PHI a general helpdesk queue should not process | Gursimar Singh</title>
+  <title>IT request helper for Neuropath | Gursimar Singh</title>
   <style>
     :root {
       --ink: #1c2422; --muted: #5c6663; --line: #e2e6e4; --paper: #f7f9f8;
@@ -72,6 +72,7 @@
     .log-list div { border-bottom: 1px solid var(--line); padding: 8px 0; }
     .log-list div:last-child { border-bottom: 0; }
     .empty { color: var(--muted); font-size: 14px; padding: 24px 8px; }
+    .summary { margin: 0 0 12px; font-size: 1.02rem; }
     footer { margin-top: 36px; color: #7a847f; font-size: 14px; border-top: 1px solid var(--line); padding-top: 16px; }
     @media (max-width: 760px) {
       .scores, .pipe, .grid { grid-template-columns: 1fr 1fr; }
@@ -82,54 +83,53 @@
   </style>
 </head>
 <body>
-  <p class="kicker">Neuropath Behavioral Healthcare · IT Helpdesk Triage</p>
-  <h1>2 of 8 sample IT tickets carried PHI a general helpdesk queue should not process</h1>
-  <p class="sub">Built by Gursimar Singh, 23 November 2026, America/New_York. Sample and synthetic staff and client names only. No real patient data.</p>
-  <p class="lede">Neuropath already runs Union, Cherry Hill, and East Orange, is opening a new outpatient facility in December 2026, and has a hospital planned for 2028, while building its own tools such as Connect Hub and AI-assisted care matching. This page is a working IT helpdesk triage agent aimed at a Director of IT, and at the Entry-Level AI Automation Systems Specialist role: a staff ticket comes in, the agent classifies urgency and category, flags anything that looks like PHI or a HIPAA risk, drafts a fix or routes the ticket, and writes an audit trail. All logic runs in the browser on labeled sample data. Pick a ticket on the left, or paste your own sample text.</p>
+  <p class="kicker">For Neuropath Behavioral Healthcare</p>
+  <h1>A helper that sorts your staff's IT requests</h1>
+  <p class="lede">I'm Gursimar, a recent Rutgers IT grad. I saw you're hiring an AI Automation Systems Specialist, so I built a small version of something I'd want to work on here. It takes IT requests from your staff, figures out how urgent they are, catches anything with patient info so it doesn't get handled carelessly, and suggests a fix or who should take it.</p>
 
-  <p class="note">Sample / fake data only. Ticket IDs, staff names, and any client details on this page are invented for the demo. Do not paste real patient information here.</p>
+  <p class="note">All tickets here are made up, no real patient data.</p>
 
   <div class="scores">
-    <div><b>8</b><span>Sample staff tickets</span></div>
-    <div><b>2</b><span>PHI / HIPAA holds</span></div>
-    <div><b>3</b><span>Routed off the L1 queue</span></div>
-    <div><b>1</b><span>New-site provisioning pack</span></div>
+    <div><b>8</b><span>Sample requests</span></div>
+    <div><b>2</b><span>Flagged for patient info</span></div>
+    <div><b>3</b><span>Sent to another team</span></div>
+    <div><b>1</b><span>For the December site</span></div>
     <div><b>0</b><span>Real patient records</span></div>
   </div>
 
   <div class="pipe">
-    <div><b>1. Ticket in</b>Staff request from any site</div>
-    <div><b>2. Classify</b>Urgency and category</div>
-    <div><b>3. PHI check</b>Hold if a chart, diagnosis, or identifier appears</div>
-    <div><b>4. Draft or route</b>L1 fix, Privacy, Security, or IT Director</div>
-    <div><b>5. Audit log</b>Who decided what, with a timestamp</div>
+    <div><b>1. Request comes in</b>A staff message from any office</div>
+    <div><b>2. How urgent?</b>It figures out what needs attention first</div>
+    <div><b>3. Patient info?</b>Flags a chart, diagnosis, or date of birth</div>
+    <div><b>4. Suggests a fix</b>Or who should handle it</div>
+    <div><b>5. Keeps a log</b>So you can see what was decided</div>
   </div>
-  <p class="pipe-cap">Client-side rules, not a live model. The same engine scores both the canned tickets and anything you paste.</p>
+  <p class="pipe-cap">Try a sample on the left, or paste one of your own. Everything here runs in your browser.</p>
 
   <div class="bench">
     <div class="qlist" id="qlist"></div>
     <div class="stage">
-      <div class="ticket" id="ticket"><p class="empty">Pick a sample ticket to see the triage output.</p></div>
+      <div class="ticket" id="ticket"><p class="empty">Pick a sample request to see what the helper does.</p></div>
       <div class="out" id="out"></div>
       <form class="composer" id="form">
-        <label class="hint" for="paste">Or paste a sample ticket (fake data only)</label>
-        <textarea id="paste" placeholder="From: alex.rivera@example.org (sample)&#10;Site: Cherry Hill&#10;Subject: &#10;Body: "></textarea>
+        <label class="hint" for="paste">Or paste a request of your own (please use made-up details)</label>
+        <textarea id="paste" placeholder="From: alex.rivera@example.org&#10;Site: Cherry Hill&#10;Subject: Printer is jammed again&#10;Body: "></textarea>
         <div class="row">
-          <button type="submit">Triage this ticket</button>
+          <button type="submit">Sort this request</button>
           <button type="button" class="ghost" id="clear">Clear log</button>
-          <span class="hint">Output is generated in your browser.</span>
+          <span class="hint">This runs in your browser.</span>
         </div>
       </form>
     </div>
   </div>
 
-  <h2>Audit trail for this session</h2>
-  <p class="hint">Entries are written when you run a ticket. Nothing is stored on a server.</p>
-  <div class="audit-box" id="audit"><p class="empty">No tickets triaged yet.</p></div>
+  <h2>Log for this session</h2>
+  <p class="hint">A line is added each time you try a request. Nothing is saved on a server.</p>
+  <div class="audit-box" id="audit"><p class="empty">Nothing in the log yet. Try a request above.</p></div>
 
-  <h2>What this is for</h2>
-  <p>A growing multi-site behavioral health provider cannot treat every IT request the same way. A printer jam can sit in L1. A Connect Hub outage at Union should page infrastructure. A request that names a client chart or a diagnosis should never be fulfilled from a general helpdesk queue. And the December 2026 outpatient opening needs a repeatable provisioning checklist (accounts, devices, EHR, Connect Hub) with an audit trail, not a loose email thread.</p>
-  <p>This prototype shows the shape of the work an AI Automation Systems Specialist could take on: classify, catch PHI, draft the next step, and leave a record. It is a demo, not a production system, and it is not connected to any live EHR, identity provider, or ticketing tool.</p>
+  <h2>Why I built this</h2>
+  <p>You already have offices in Union, Cherry Hill, and East Orange, and a new outpatient facility opening in December 2026. A jammed printer can wait a bit. If Connect Hub goes down at Union, that needs help right away. And if someone asks IT to email a patient chart, that shouldn't be treated like a normal request.</p>
+  <p>This is a small demo of how that sorting could work. It isn't connected to any of your real systems.</p>
 
   <footer>Gursimar Singh · gursimarsb04@gmail.com · 848-218-9407</footer>
 
@@ -137,219 +137,242 @@
   const TICKETS = [
     {
       id: "TKT-1042",
-      group: "Access",
-      short: "Password reset, Cherry Hill clinician",
-      from: "Priya Shah (sample), Clinician, Cherry Hill",
+      group: "Logins",
+      short: "Locked out of email, Cherry Hill",
+      from: "Priya Shah, Clinician, Cherry Hill",
       fromEmail: "priya.shah@example.org",
       site: "Cherry Hill",
       subject: "Locked out of my email and Connect Hub",
-      body: "Hi IT, I tried my password too many times after the weekend and now I cannot get into email or Connect Hub. I have sessions starting at 1 p.m. Can someone reset my account? I am at the Cherry Hill outpatient office. No client information is in this request. — Priya Shah (sample staff)"
+      body: "Hi IT, I tried my password too many times after the weekend and now I can't get into email or Connect Hub. I have sessions starting at 1 p.m. Can someone reset my account? I'm at the Cherry Hill office. Thanks, Priya"
     },
     {
       id: "TKT-1043",
-      group: "Applications",
-      short: "Connect Hub SSO down at Union",
-      from: "Marcus Hale (sample), Front Desk, Union",
+      group: "Outages",
+      short: "Connect Hub is down at Union",
+      from: "Marcus Hale, Front Desk, Union",
       fromEmail: "marcus.hale@example.org",
       site: "Union",
-      subject: "Connect Hub SSO is down for the Union front desk",
-      body: "Connect Hub single sign-on has been failing for the whole Union front desk since about 9:10 a.m. Three of us are stuck on the login page and cannot check today's schedule. I already tried a different browser and a reboot. This is blocking the morning slate. — Marcus Hale (sample staff)"
+      subject: "Connect Hub is down for the Union front desk",
+      body: "Hi, Connect Hub has been down for the whole Union front desk since about 9:10 this morning. Three of us are stuck on the login page and can't check today's schedule. I already tried a different browser and a reboot. This is blocking the morning. Thanks, Marcus"
     },
     {
       id: "TKT-1044",
-      group: "Provisioning",
-      short: "New hire access, East Orange",
-      from: "Dani Alvarez (sample), HR Coordinator",
+      group: "New accounts",
+      short: "New clinician starting at East Orange",
+      from: "Dani Alvarez, HR Coordinator",
       fromEmail: "dani.alvarez@example.org",
       site: "East Orange",
       subject: "New clinician starts Monday at East Orange",
-      body: "Please provision accounts for a new IIC clinician starting Monday at East Orange. Sample new hire: Taylor Nguyen, start date 30 November 2026, supervisor Jordan Blake (sample). Needed: Google Workspace email, Connect Hub SSO, EHR access at the clinician role, building badge, and a laptop. No client records should be attached to this ticket. — Dani Alvarez (sample staff)"
+      body: "Hi, we have a new hire starting Monday at the East Orange office. Name is Taylor Nguyen, start date November 30, supervisor is Jordan Blake. They'll need email, Connect Hub, EHR access, a badge, and a laptop. Can you set that up before Monday? Thanks, Dani"
     },
     {
       id: "TKT-1045",
-      group: "PHI / HIPAA",
-      short: "Request to email a client chart",
-      from: "Riley Chen (sample), Care Coordinator, Union",
+      group: "Patient info",
+      short: "Please email a patient chart",
+      from: "Riley Chen, Care Coordinator, Union",
       fromEmail: "riley.chen@example.org",
       site: "Union",
       subject: "Need a client chart emailed to my personal Gmail",
-      body: "Can you pull the chart for Jordan Hale (SAMPLE CLIENT, not a real person), DOB 01/15/1990, and email the diagnosis and treatment plan to my personal Gmail, riley.chen.sample@gmail.com, so I can work on it tonight? I also have a Medicaid ID in the note if you need it: SAMPLE-000111. Thanks, Riley Chen (sample staff)"
+      body: "Hi, can you pull the chart for Jordan Hale and email the diagnosis and treatment plan to my personal Gmail? I want to work on it tonight and that's the easiest way for me to get it. I can send the date of birth if you need it. Thanks, Riley"
     },
     {
       id: "TKT-1046",
-      group: "Hardware",
-      short: "Printer jam, Cherry Hill waiting room",
-      from: "Sam Ortiz (sample), Front Desk, Cherry Hill",
+      group: "Printers",
+      short: "Printer jammed again, Cherry Hill",
+      from: "Sam Ortiz, Front Desk, Cherry Hill",
       fromEmail: "sam.ortiz@example.org",
       site: "Cherry Hill",
-      subject: "Waiting-room printer is jammed again",
-      body: "The waiting-room printer at Cherry Hill is jammed and will not print visit summaries or sign-in sheets. I already opened the tray and cleared a crumpled page, but it still says paper jam. This is annoying but we can use the back-office printer for now. — Sam Ortiz (sample staff)"
+      subject: "Printer on the 2nd floor is jammed again",
+      body: "Hi, the printer on the 2nd floor in Cherry Hill is jammed again and won't print sign-in sheets. I already opened the tray and pulled out a crumpled page, but it still says paper jam. We can use the back office printer for now. Thanks, Sam"
     },
     {
       id: "TKT-1047",
       group: "Security",
-      short: "USB found in Union lobby",
-      from: "Chris Patel (sample), Facilities, Union",
+      short: "Found a USB in the Union lobby",
+      from: "Chris Patel, Facilities, Union",
       fromEmail: "chris.patel@example.org",
       site: "Union",
-      subject: "Found a USB in the Union lobby, computer showed a lock screen",
-      body: "Someone left a USB stick on a chair in the Union lobby. I plugged it into the front-desk PC to see who it belonged to, and the screen showed a message that looked like a ransom note and said the files were encrypted. I have not clicked anything else. The stick is still in the machine. Please help. — Chris Patel (sample staff)"
+      subject: "Found a USB in the Union lobby",
+      body: "Someone left a USB stick on a chair in the Union lobby. I plugged it into the front desk computer to see who it belonged to, and the screen showed a message that looked like a ransom note, saying the files were encrypted. I haven't clicked anything else. The stick is still in the machine. Please help. Chris"
     },
     {
       id: "TKT-1048",
-      group: "Provisioning",
-      short: "Dec 2026 outpatient site provisioning",
-      from: "Avery Kim (sample), Operations, New outpatient site",
+      group: "New accounts",
+      short: "Setup for the December opening",
+      from: "Avery Kim, Operations",
       fromEmail: "avery.kim@example.org",
       site: "New outpatient facility (opening Dec 2026)",
-      subject: "Need accounts, devices, and EHR for the December 2026 opening",
-      body: "The new outpatient facility is scheduled to open in December 2026. We have a first wave of 12 sample staff (clinicians, front desk, and a supervisor) who need Google Workspace, badges, laptops, EHR access, Connect Hub, and the patient portal admin role before opening week. Can IT run a provisioning checklist with an audit trail so we can show who was granted what, and when? No client records in this request. — Avery Kim (sample staff)"
+      subject: "Need accounts and laptops for the December 2026 opening",
+      body: "Hi, the new outpatient facility is scheduled to open in December 2026. We have a first group of 12 people (clinicians, front desk, and a supervisor) who need email, badges, laptops, EHR access, and Connect Hub before opening week. Can IT set that up and keep a record of who got what? Thanks, Avery"
     },
     {
       id: "TKT-1049",
-      group: "PHI / HIPAA",
-      short: "Ask to text a diagnosis to a parent",
-      from: "Morgan Ellis (sample), Clinician, East Orange",
+      group: "Patient info",
+      short: "Can I text a diagnosis to a parent?",
+      from: "Morgan Ellis, Clinician, East Orange",
       fromEmail: "morgan.ellis@example.org",
       site: "East Orange",
       subject: "Parent asked me to text a diagnosis",
-      body: "A client's mother asked me to text her son's diagnosis and medication list to her personal cell, 555-014-8890 (sample number). The sample client name in her voicemail was Alex Rivera (SAMPLE CLIENT, not a real person). Can IT tell me if I can just text it, or set up a way to send it from my personal phone? — Morgan Ellis (sample staff)"
+      body: "Hi, a client's mother asked me to text her son's diagnosis and medication list to her personal cell. Can you tell me if I'm allowed to just text it, or set something up so I can send it from my phone? Thanks, Morgan"
     }
   ];
 
   const PHI_RULES = [
-    { re: /\bdob\b|\bdate of birth\b|\bborn\s+\d/i, why: "Date of birth" },
-    { re: /\bssn\b|social security/i, why: "Social Security number" },
-    { re: /\bmedicaid\b|\bmrn\b|medical record/i, why: "Medical record or payer identifier" },
-    { re: /\bdiagnosis\b|\btreatment plan\b|\bmedication list\b|\bprogress note/i, why: "Clinical content (diagnosis, treatment plan, or medication list)" },
-    { re: /\bchart\b|\bclient record\b|\bpatient record/i, why: "Request for a client or patient chart" },
-    { re: /\bphi\b|\bhipaa\b/i, why: "Explicit PHI or HIPAA language" },
-    { re: /\bicd-?10\b|\bdischarge summary\b|\btherapy notes?\b/i, why: "Clinical document type" }
+    { re: /\bdob\b|\bdate of birth\b|\bborn\s+\d/i, why: "a date of birth" },
+    { re: /\bssn\b|social security/i, why: "a Social Security number" },
+    { re: /\bmedicaid\b|\bmrn\b|medical record/i, why: "an insurance or medical record number" },
+    { re: /\bdiagnosis\b|\btreatment plan\b|\bmedication list\b|\bprogress note/i, why: "a diagnosis, treatment plan, or medication list" },
+    { re: /\bchart\b|\bclient record\b|\bpatient record/i, why: "a request for a patient chart" },
+    { re: /\bphi\b|\bhipaa\b/i, why: "a mention of patient records" },
+    { re: /\bicd-?10\b|\bdischarge summary\b|\btherapy notes?\b/i, why: "a clinical document" }
   ];
 
   function detectPhi(text) {
     const hits = [];
     PHI_RULES.forEach(r => { if (r.re.test(text)) hits.push(r.why); });
     const personal = /personal (gmail|email|phone|cell|yahoo)|text (it|her|him|the diagnosis)|email (it|the chart|the diagnosis) to my personal/i.test(text);
-    if (personal && hits.length) hits.push("Request to send clinical data to a personal mailbox or phone");
+    if (personal && hits.length) hits.push("a request to send patient details to a personal email or phone");
     return [...new Set(hits)];
+  }
+
+  function isNewSite(text) {
+    return /opening|december 2026|12 (staff|people)|first (wave|group)/i.test(text);
   }
 
   function classify(ticket) {
     const text = [ticket.subject, ticket.body, ticket.site, ticket.from].join("\n");
     const low = text.toLowerCase();
     const phi = detectPhi(text);
+    const site = ticket.site || "the office";
     let category = "General IT";
-    if (phi.length) category = "PHI / HIPAA";
-    else if (/ransom|malware|encrypt|phish|usb|breach|lock screen/.test(low)) category = "Security incident";
-    else if (/provision|new hire|onboarding|offboard|badge|start date|opening|new outpatient/.test(low)) category = "Provisioning";
-    else if (/password|locked out|reset my|mfa|cannot get into/.test(low)) category = "Identity / access";
-    else if (/sso|connect hub|outage|is down|offline|login page/.test(low)) category = "Applications / outage";
+    if (phi.length) category = "Patient info";
+    else if (/ransom|malware|encrypt|phish|usb|breach|lock screen/.test(low)) category = "Security";
+    else if (/provision|new hire|onboarding|offboard|badge|start date|opening|new outpatient/.test(low)) category = "New accounts";
+    else if (/password|locked out|reset my|mfa|cannot get into|can't get into|cant get into/.test(low)) category = "Login help";
+    else if (/sso|connect hub|outage|is down|offline|login page/.test(low)) category = "Outage";
     else if (/printer|laptop|monitor|hardware|jam/.test(low)) category = "Hardware";
 
     let urgency = "Low";
     if (phi.length || /ransom|malware|encrypt|breach/.test(low)) urgency = "Critical";
-    else if (/is down|outage|blocking|whole .* desk|cannot check today's|opening|december 2026/.test(low)) urgency = "High";
+    else if (/is down|outage|blocking|whole .* desk|cannot check today|can't check today|cant check today|opening|december 2026/.test(low)) urgency = "High";
     else if (/password|locked out|new hire|provision|ehr access/.test(low)) urgency = "Medium";
 
-    let route = "IT Level 1";
-    let action = "Resolve in L1 and close with a reply.";
-    if (category === "PHI / HIPAA") {
-      route = "Privacy Officer + Security (hold in queue)";
-      action = "Do not fulfill. Do not forward the clinical content. Place a hold, notify Privacy and Security, and tell the requester to use the approved channel.";
-    } else if (category === "Security incident") {
-      route = "Security + IT Director";
-      action = "Isolate the endpoint, preserve the USB, and open a security incident. Do not run the stick again.";
-    } else if (category === "Applications / outage") {
-      route = "IT Director / infrastructure";
-      action = "Treat as a site outage. Check SSO and Connect Hub health, notify Union staff, and post a status update.";
-    } else if (category === "Provisioning" && /opening|december 2026|12 staff|first wave/.test(low)) {
-      route = "IT Director + project checklist";
-      action = "Open a new-site provisioning pack with an audit trail for accounts, devices, EHR, and Connect Hub.";
-    } else if (category === "Provisioning") {
-      route = "IT Level 1 (provisioning checklist)";
-      action = "Run the standard new-hire checklist and log each grant.";
-    } else if (category === "Identity / access") {
-      route = "IT Level 1";
-      action = "Verify the requester, reset the account, and confirm Connect Hub and email after sign-in.";
+    let route = "IT support";
+    let action = "Look over the request and send a short reply with the next step.";
+    if (category === "Patient info") {
+      route = "Privacy team";
+      action = "Don't complete this request or forward any patient details. Send it to the privacy team, and tell the person to use the usual secure way to share records.";
+    } else if (category === "Security") {
+      route = "Security and the IT director";
+      action = "Leave the USB where it is, disconnect that computer from the network, and treat this as a security incident.";
+    } else if (category === "Outage") {
+      route = "IT director";
+      action = "Check Connect Hub, let the " + site + " staff know, and post a short update.";
+    } else if (category === "New accounts" && isNewSite(low)) {
+      route = "IT director";
+      action = "Start a checklist for the new site (accounts, devices, EHR, and Connect Hub) and keep a record of who got what.";
+    } else if (category === "New accounts") {
+      route = "IT support";
+      action = "Set up email, Connect Hub, EHR access, a badge, and a laptop, and write down what was granted.";
+    } else if (category === "Login help") {
+      route = "IT support";
+      action = "Confirm who they are, reset the account, and make sure they can get into email and Connect Hub.";
+    } else if (category === "Hardware") {
+      route = "IT support";
+      action = "Clear the jam or swap the printer, and check that sign-in sheets print again.";
     }
 
     return { urgency, category, phi, route, action };
   }
 
+  function firstName(ticket) {
+    const who = (ticket.from || "there").split(",")[0].trim();
+    const first = who.split(" ")[0];
+    return first || "there";
+  }
+
   function draft(ticket, t) {
-    const who = (ticket.from || "there").split(",")[0];
-    if (t.category === "PHI / HIPAA") {
-      return "Hi " + who + ",\n\nI cannot complete this request from the general IT queue. The ticket includes information that looks like protected health information, and clinical records cannot be emailed or texted to a personal mailbox or phone.\n\nI have placed a hold, notified Privacy and Security, and I will not forward the chart or diagnosis. Please use the approved EHR or secure messaging workflow, and do not send client identifiers in a helpdesk ticket.\n\nIT Helpdesk (sample draft)";
+    const who = firstName(ticket);
+    const site = ticket.site || "your office";
+    if (t.category === "Patient info") {
+      return "Hi " + who + ",\n\nI can't complete this from the regular IT queue. This request includes patient information, and we can't email or text charts, diagnoses, or medication lists to a personal email or phone.\n\nI've held this and sent it to the privacy team. I won't forward any patient details. Please use the usual secure way to share records, and try not to put patient information in an IT request.\n\nIT support";
     }
-    if (t.category === "Security incident") {
-      return "Hi " + who + ",\n\nPlease leave the USB in the machine and do not click further prompts. I am treating this as a security incident: we will isolate the front-desk PC from the network, preserve the stick, and have Security and the IT Director review it. Do not plug that USB into any other device.\n\nIT Helpdesk (sample draft)";
+    if (t.category === "Security") {
+      return "Hi " + who + ",\n\nPlease leave the USB in the computer and don't click anything else. I'm treating this as a security issue. We'll disconnect the front desk PC from the network, leave the stick as it is, and have security take a look. Don't plug that USB into any other device.\n\nIT support";
     }
-    if (t.category === "Applications / outage") {
-      return "Hi " + who + ",\n\nI am treating this as a site outage, not a single-user login issue. We are checking Connect Hub SSO for " + (ticket.site || "your site") + ", and I have routed this to infrastructure and the IT Director. I will post a short status update to the Union front desk as soon as we know whether this is a provider issue or a local configuration problem.\n\nIT Helpdesk (sample draft)";
+    if (t.category === "Outage") {
+      return "Hi " + who + ",\n\nThis looks like an outage, not just one person having trouble logging in. We're checking Connect Hub for " + site + ", and I've sent this to the IT director. I'll send the front desk a short update as soon as we know more.\n\nIT support";
     }
-    if (/opening|december 2026|12 staff|first wave/i.test(ticket.body + ticket.subject)) {
-      return "Hi " + who + ",\n\nI have opened a provisioning pack for the December 2026 outpatient opening. For the first wave of 12 staff we will grant, in order: Google Workspace, building badge, laptop, EHR role, Connect Hub SSO, and patient-portal admin where approved. Each grant will be logged (who, what, when, who approved) so you have an audit trail before opening week. I will send the checklist owner a kickoff note today.\n\nIT Helpdesk (sample draft)";
+    if (isNewSite((ticket.body || "") + " " + (ticket.subject || ""))) {
+      return "Hi " + who + ",\n\nI've started a setup list for the December 2026 opening. For the first group of 12 people we'll set up email, badges, laptops, EHR access, and Connect Hub. I'll keep a record of who got what and when, so you have that before opening week. I'll send a kickoff note today.\n\nIT support";
     }
-    if (t.category === "Provisioning") {
-      return "Hi " + who + ",\n\nI will provision the new hire on the standard checklist: Google Workspace email, Connect Hub SSO, EHR access at the requested role, badge, and laptop. I will confirm the start date and supervisor, log each grant, and send you a completion note before Monday.\n\nIT Helpdesk (sample draft)";
+    if (t.category === "New accounts") {
+      return "Hi " + who + ",\n\nI'll set up the new hire the usual way: email, Connect Hub, EHR access, a badge, and a laptop. I'll confirm the start date and supervisor, keep a record of what was granted, and send you a note when it's done, before Monday.\n\nIT support";
     }
-    if (t.category === "Identity / access") {
-      return "Hi " + who + ",\n\nI can reset the account after a quick identity check (site, supervisor, and last successful sign-in). After the reset, please sign into email first, then Connect Hub, and reply to this ticket if either one still fails. Target is to have you back in before the 1 p.m. sessions.\n\nIT Helpdesk (sample draft)";
+    if (t.category === "Login help") {
+      return "Hi " + who + ",\n\nI can reset your account after a quick check that it's you. After that, please sign into email first, then Connect Hub, and reply here if either one still doesn't work. I'll try to have you back in before your 1 p.m. sessions.\n\nIT support";
     }
-    return "Hi " + who + ",\n\nThanks for the report. This looks like a standard hardware issue. I will have L1 clear the jam or swap the waiting-room printer and confirm you can print sign-in sheets again. Using the back-office printer in the meantime is fine.\n\nIT Helpdesk (sample draft)";
+    return "Hi " + who + ",\n\nThanks for letting us know. This looks like a regular printer problem. I'll have someone clear the jam or swap the printer and make sure you can print sign-in sheets again. Using the back office printer in the meantime is fine.\n\nIT support";
   }
 
   function steps(ticket, t) {
-    if (t.category === "PHI / HIPAA") return [
-      "Stop. Do not open, copy, or forward any chart, diagnosis, or identifier from the ticket.",
-      "Tag the ticket as a PHI hold and restrict visibility to Privacy and Security.",
-      "Notify the Privacy Officer and Security; do not auto-reply with the requested records.",
-      "Coach the requester to use the approved EHR or secure channel, and remind staff not to put client data in helpdesk tickets.",
-      "Write the hold, the reason, and the notification targets into the audit log."
+    const site = ticket.site || "the office";
+    if (t.category === "Patient info") return [
+      "Stop. Don't open, copy, or forward any patient details from this request.",
+      "Hold the request and send it to the privacy team.",
+      "Don't send the chart, diagnosis, or other records that were asked for.",
+      "Tell the person to use the usual secure way to share records, and remind staff not to put patient info in IT tickets.",
+      "Write down that it was held, why, and who was notified."
     ];
-    if (t.category === "Security incident") return [
-      "Call the reporter and tell them not to remove or reuse the USB.",
-      "Isolate the Union front-desk PC from the network; do not power-cycle if memory evidence may be needed.",
-      "Open a security incident and page the IT Director.",
-      "Preserve the USB and capture basic endpoint evidence.",
-      "Check whether any shared drives or EHR sessions were open; document findings in the audit log."
+    if (t.category === "Security") return [
+      "Tell the person who reported it not to remove or reuse the USB, and not to click anything else.",
+      "Disconnect the " + site + " front desk computer from the network.",
+      "Let security and the IT director know right away.",
+      "Leave the USB as it is and keep a short record of what happened.",
+      "Check whether any shared files or patient systems were open, and write down what you find."
     ];
-    if (t.category === "Applications / outage") return [
-      "Confirm whether SSO failure is Union-only or all sites.",
-      "Check Connect Hub and identity-provider health, then route to infrastructure and the IT Director.",
-      "Post a holding status to the Union front desk.",
-      "If it is a vendor issue, open a vendor ticket and keep a public status line.",
-      "Log start time, impact (front desk schedule access), and the next update time."
+    if (t.category === "Outage") return [
+      "Check whether Connect Hub is down only at " + site + " or at every office.",
+      "Look at Connect Hub and sign-in, then send this to the IT director.",
+      "Send a short holding update to the " + site + " front desk.",
+      "If it looks like a vendor problem, open a ticket with them and keep staff updated.",
+      "Write down when it started, who is affected, and when the next update will be."
     ];
-    if (/opening|december 2026|12 staff|first wave/i.test(ticket.body + ticket.subject)) return [
-      "Create a new-site provisioning project for the December 2026 outpatient facility.",
-      "Collect the roster of 12 staff, roles, and start dates from Operations and HR.",
-      "Run the checklist for each person: Workspace, badge, laptop, EHR role, Connect Hub, portal admin if approved.",
-      "Record who granted what, when, and who approved it.",
-      "Send a readiness report to the IT Director before opening week."
+    if (isNewSite((ticket.body || "") + " " + (ticket.subject || ""))) return [
+      "Start a setup list for the December 2026 outpatient facility.",
+      "Get the list of 12 people, their roles, and start dates from operations and HR.",
+      "For each person, set up email, a badge, a laptop, EHR access, and Connect Hub.",
+      "Write down who got what, when, and who approved it.",
+      "Send a short readiness note to the IT director before opening week."
     ];
-    if (t.category === "Provisioning") return [
-      "Confirm start date, site, role, and supervisor with HR.",
-      "Create Google Workspace and add the user to the East Orange and clinician groups.",
-      "Grant Connect Hub SSO and the clinician EHR role; issue badge and laptop.",
-      "Send credentials through the approved channel, never in an open ticket with client data.",
-      "Log each grant in the audit trail and close after the new hire signs in once."
+    if (t.category === "New accounts") return [
+      "Confirm the start date, office, role, and supervisor with HR.",
+      "Set up email and add them to the right office and role groups.",
+      "Turn on Connect Hub and the right EHR access, and issue a badge and laptop.",
+      "Send login details the usual secure way, never in a ticket that has patient info.",
+      "Write down what was granted, and close the request after they sign in once."
     ];
-    if (t.category === "Identity / access") return [
-      "Verify the requester is the named Cherry Hill clinician (not a spoofed reset).",
-      "Reset the password and unlock the account; confirm MFA is intact.",
+    if (t.category === "Login help") return [
+      "Confirm the person asking is really who they say they are.",
+      "Reset the password and unlock the account.",
       "Ask them to sign into email, then Connect Hub, and confirm before 1 p.m.",
-      "If Connect Hub still fails after email works, escalate as an application issue.",
-      "Close with a log of who approved the reset."
+      "If email works but Connect Hub still doesn't, treat it as an app problem and escalate.",
+      "Close the request and note who approved the reset."
     ];
     return [
-      "Have L1 visit or remote into the Cherry Hill waiting-room printer.",
-      "Clear the jam, replace rollers or tray if needed, and print a test page.",
-      "Confirm sign-in sheets print; leave the back-office printer as backup.",
-      "If this is a repeat jam, schedule a device swap.",
-      "Close the ticket with time spent and parts used."
+      "Have someone check the printer at " + site + ".",
+      "Clear the jam, replace parts if needed, and print a test page.",
+      "Confirm sign-in sheets print, and leave the back office printer as a backup.",
+      "If this keeps happening, plan to swap the printer.",
+      "Close the request with a short note on what was done."
     ];
+  }
+
+  function summary(t) {
+    if (t.phi.length) {
+      return t.urgency + " urgency. Don't process this request. Send it to the privacy team. It looks like it includes patient information.";
+    }
+    return t.urgency + " urgency. Suggested fix: " + t.action;
   }
 
   const audit = [];
@@ -360,7 +383,7 @@
   const form = document.getElementById("form");
   const paste = document.getElementById("paste");
 
-  const groups = ["PHI / HIPAA", "Security", "Applications", "Provisioning", "Access", "Hardware"];
+  const groups = ["Patient info", "Security", "Outages", "New accounts", "Logins", "Printers"];
   groups.forEach(g => {
     const h = document.createElement("h3");
     h.textContent = g;
@@ -390,17 +413,17 @@
   function renderResult(ticket, t) {
     const phiYes = t.phi.length > 0;
     const badges = [
-      '<span class="badge ' + t.urgency.toLowerCase() + '">Urgency: ' + t.urgency + "</span>",
-      '<span class="badge ' + (phiYes ? "phi" : "ok") + '">' + (phiYes ? "PHI / HIPAA hold" : "No PHI detected") + "</span>",
-      '<span class="badge">' + t.category + "</span>"
+      '<span class="badge ' + t.urgency.toLowerCase() + '">' + t.urgency + " urgency</span>",
+      '<span class="badge ' + (phiYes ? "phi" : "ok") + '">' + (phiYes ? "Has patient info" : "No patient info found") + "</span>"
     ].join("");
     outEl.innerHTML =
+      '<p class="summary">' + summary(t) + "</p>" +
       '<div class="badges">' + badges + "</div>" +
       '<div class="grid">' +
-        '<div class="cell"><b>Route to</b>' + t.route + "</div>" +
-        '<div class="cell"><b>Action</b>' + t.action + "</div>" +
-        '<div class="cell"><b>Site</b>' + (ticket.site || "Not specified") + "</div>" +
-        '<div class="cell"><b>PHI indicators</b>' + (phiYes ? t.phi.join("; ") : "None in this sample ticket") + "</div>" +
+        '<div class="cell"><b>Who should handle it</b>' + t.route + "</div>" +
+        '<div class="cell"><b>Office</b>' + (ticket.site || "Not specified") + "</div>" +
+        '<div class="cell"><b>Why it was flagged</b>' + (phiYes ? "Found " + t.phi.join("; ") : "No patient info in this request") + "</div>" +
+        '<div class="cell"><b>Type</b>' + t.category + "</div>" +
       "</div>" +
       '<div class="draft' + (phiYes ? " hold" : "") + '"><h4>Draft reply</h4><pre>' + draft(ticket, t) + "</pre></div>" +
       '<div class="steps"><h4>Next steps</h4><ol>' + steps(ticket, t).map(s => "<li>" + s + "</li>").join("") + "</ol></div>";
@@ -412,12 +435,12 @@
       id: ticket.id,
       urgency: t.urgency,
       category: t.category,
-      phi: t.phi.length ? "HOLD" : "clear",
+      phi: t.phi.length ? "has patient info" : "no patient info",
       route: t.route
     });
     auditEl.innerHTML = '<div class="log-list">' + audit.map(e =>
-      "<div><strong>" + e.at + "</strong> · " + e.id + " · " + e.urgency + " · " + e.category +
-      " · PHI " + e.phi + " · routed to " + e.route + "</div>"
+      "<div><strong>" + e.at + "</strong> · " + e.id + " · " + e.urgency + " urgency · " + e.phi +
+      " · sent to " + e.route + "</div>"
     ).join("") + "</div>";
   }
 
@@ -429,16 +452,25 @@
     writeAudit(ticket, t);
   }
 
+  function extractField(raw, labels) {
+    for (let i = 0; i < labels.length; i++) {
+      const re = new RegExp(labels[i] + "\\s*:\\s*(.+)", "i");
+      const m = raw.match(re);
+      if (m) return m[1].split("\n")[0].trim();
+    }
+    return "";
+  }
+
   form.addEventListener("submit", ev => {
     ev.preventDefault();
     const raw = paste.value.trim();
     if (!raw) return;
     const ticket = {
       id: "TKT-PASTE-" + String(audit.length + 1).padStart(2, "0"),
-      from: "Pasted sample ticket",
+      from: extractField(raw, ["from"]) || "Pasted sample request",
       fromEmail: "pasted@example.org",
-      site: /site:\s*(.+)/i.test(raw) ? raw.match(/site:\s*(.+)/i)[1].split("\n")[0] : "Not specified",
-      subject: /subject:\s*(.+)/i.test(raw) ? raw.match(/subject:\s*(.+)/i)[1].split("\n")[0] : "Pasted sample ticket",
+      site: extractField(raw, ["site", "office"]) || "Not specified",
+      subject: extractField(raw, ["subject"]) || "Pasted sample request",
       body: raw
     };
     runTicket(ticket, true);
@@ -446,7 +478,7 @@
 
   document.getElementById("clear").addEventListener("click", () => {
     audit.length = 0;
-    auditEl.innerHTML = '<p class="empty">No tickets triaged yet.</p>';
+    auditEl.innerHTML = '<p class="empty">Nothing in the log yet. Try a request above.</p>';
   });
 
   runTicket(TICKETS[3], false);
